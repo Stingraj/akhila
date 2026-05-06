@@ -1,6 +1,11 @@
-# [Project name]
+# Travel Next Level
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A scroll-driven video landing page for a travel brand — visitors scroll through a portal video that scrubs frame-by-frame, then arrives at a destination CTA.
+
+## Artifact
+
+- `artifacts/travel/index.html` — single-file plain HTML/CSS/JS landing page (no React used). Vite serves it as static HTML.
+- `artifacts/travel/public/door-video.mp4` — the scroll-scrubbed hero video.
 
 ## Run & Operate
 
