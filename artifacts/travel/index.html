@@ -226,13 +226,14 @@
 </div>
 
 <div id="text-reveal-section" style="position:relative; height:200vh;">
-  <div class="sticky-content" style="position:sticky; top:0; height:100vh; display:flex; justify-content:center; align-items:center; overflow:hidden; background-color:#f0ede8;">
-    <div class="reveal-text" style="font-family:'Inter',sans-serif; font-weight:700; text-transform:uppercase; text-align:center; font-size:clamp(40px,7vw,110px); line-height:1.1; padding:0 40px; background-image:linear-gradient(to top, #000, #bbb); background-size:100% 200%; background-position:0% 0%; -webkit-background-clip:text; background-clip:text; color:transparent;">
-      Your unforgettable<br>
-      adventure is here.<br>
-      Begin the<br>
-      ultimate escape.<br>
-      Luxury awaits.
+  <div class="sticky-text-stage" style="position:sticky; top:0; height:100vh; display:flex; align-items:center; justify-content:center; background-color:#f0ede8;">
+    <div class="text-mask-wrapper" style="position:relative; text-align:center;">
+      <h2 class="text-base" style="margin:0; font-family:'Inter',sans-serif; font-weight:700; text-transform:uppercase; font-size:clamp(36px,6vw,110px); line-height:1.1; color:#d3d0cb;">
+        Your unforgettable<br>adventure is here.<br>Begin the<br>ultimate escape.<br>Luxury awaits.
+      </h2>
+      <h2 class="text-reveal" style="margin:0; position:absolute; inset:0; font-family:'Inter',sans-serif; font-weight:700; text-transform:uppercase; font-size:clamp(36px,6vw,110px); line-height:1.1; color:#1a1a1a; clip-path:inset(100% 0% 0% 0%);">
+        Your unforgettable<br>adventure is here.<br>Begin the<br>ultimate escape.<br>Luxury awaits.
+      </h2>
     </div>
   </div>
 </div>
@@ -481,19 +482,18 @@ gsap.registerPlugin(ScrollTrigger);
 (function initTextReveal() {
   const section = document.getElementById('text-reveal-section');
   if (!section) return;
-  const sticky = section.querySelector('.sticky-content');
-  const text = section.querySelector('.reveal-text');
+  const reveal = section.querySelector('.text-reveal');
 
-  const tl = gsap.timeline({
+  gsap.to(reveal, {
+    clipPath: 'inset(0% 0% 0% 0%)',
+    ease: 'none',
     scrollTrigger: {
       trigger: section,
       start: 'top top',
       end: 'bottom bottom',
-      scrub: true,
+      scrub: 1,
     }
   });
-  tl.to(sticky, { backgroundColor: '#000', ease: 'none' }, 0);
-  tl.to(text,   { backgroundPosition: '0% 100%', ease: 'none' }, 0);
 })();
 </script>
 </body>
