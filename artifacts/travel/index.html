@@ -225,6 +225,17 @@
   </div>
 </div>
 
+<div id="exploration-section" style="background:#f0ede8; position:relative;">
+  <div id="exploration-sticky" style="position:sticky; top:0; height:100vh; display:flex; flex-direction:column; justify-content:center; padding:60px 80px; box-sizing:border-box;">
+    <h2 style="margin:0 0 32px; font-family:'Inter',sans-serif; font-weight:700; text-transform:none; font-size:clamp(36px,5vw,76px); line-height:1.05; color:#1a1a1a; max-width:1000px;">
+      Exploration Trips and<br>Exclusive Getaways
+    </h2>
+    <p id="exploration-body" style="margin:0; font-family:'Inter',sans-serif; font-weight:500; font-size:clamp(18px,2vw,30px); line-height:1.45; max-width:900px; color:#d3d0cb;">
+      Travel is not about results or exchange of experience. It changes us, linking individuals, cultures and destinations in a very meaningful manner. By embracing most unique travel experiences and dreamy destinations, we gain a richer understanding of the world and create unforgettable memories.
+    </p>
+  </div>
+</div>
+
 <div id="dest-wrapper">
   <div id="dest-stage">
 
@@ -464,6 +475,37 @@ gsap.registerPlugin(ScrollTrigger);
     },
   });
 
+})();
+
+(function initExploration() {
+  const section = document.getElementById('exploration-section');
+  if (!section) return;
+  const body = section.querySelector('#exploration-body');
+  const words = body.textContent.trim().split(/\s+/);
+  body.innerHTML = words
+    .map(w => `<span class="exp-word" style="color:#d3d0cb;">${w}</span>`)
+    .join(' ');
+  const spans = body.querySelectorAll('.exp-word');
+
+  section.style.height = (spans.length * 60 + window.innerHeight) + 'px';
+
+  const tl = gsap.timeline();
+  tl.to(spans, {
+    color: '#1a1a1a',
+    ease: 'none',
+    stagger: 0.5,
+    duration: 0.5,
+  });
+
+  ScrollTrigger.create({
+    trigger: section,
+    start: 'top top',
+    end: 'bottom bottom',
+    animation: tl,
+    scrub: 1,
+    pin: '#exploration-sticky',
+    pinSpacing: false,
+  });
 })();
 
 </script>
