@@ -100,11 +100,11 @@
     line-height: 1.8;
   }
 
-  #scroll-wrapper {
+  #dest-wrapper {
     position: relative;
   }
 
-  #sticky-stage {
+  #dest-stage {
     position: sticky;
     top: 0;
     height: 100vh;
@@ -225,8 +225,8 @@
   </div>
 </div>
 
-<div id="scroll-wrapper">
-  <div id="sticky-stage">
+<div id="dest-wrapper">
+  <div id="dest-stage">
 
     <!-- Panel 0: Bali — visible from start -->
     <div class="dest-panel p0" id="p0">
@@ -458,7 +458,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 (function initDestinations() {
   const TOTAL = 4;
-  const wrapper = document.getElementById('scroll-wrapper');
+  const wrapper = document.getElementById('dest-wrapper');
   wrapper.style.height = (TOTAL * 120) + 'vh';
 
   const panelLs = [1,2,3].map(i => document.getElementById('pl'+i));
