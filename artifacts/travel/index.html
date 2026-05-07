@@ -68,53 +68,6 @@
     50%     { opacity: 1;   transform: scaleY(1.2); }
   }
 
-  /* ---- NEXT SECTION ---- */
-  #next-section {
-    min-height: 100vh;
-    background: #dce8f0;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 1.5rem;
-    color: #1a2744;
-    text-align: center;
-    padding: 4rem 2rem;
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  #next-section .label {
-    font-size: 0.7rem;
-    letter-spacing: 0.5em;
-    text-transform: uppercase;
-    color: #6a8fa8;
-  }
-  #next-section h2 {
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
-    font-weight: 400;
-    line-height: 1.1;
-  }
-  #next-section p {
-    font-size: 1.05rem;
-    color: #4a6070;
-    max-width: 480px;
-    line-height: 1.8;
-  }
-  #next-section .cta {
-    margin-top: 0.5rem;
-    padding: 0.9rem 2.5rem;
-    background: #1a2744;
-    color: #dce8f0;
-    border: none;
-    font-size: 0.8rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background 0.3s, letter-spacing 0.3s;
-  }
-  #next-section .cta:hover {
-    background: #2a3d6a;
-    letter-spacing: 0.35em;
-  }
-
   /* ---- DESTINATIONS SECTION ---- */
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: #f0ede8; font-family: 'Inter', sans-serif; overflow-x: hidden; }
@@ -274,13 +227,6 @@
   </div>
 </div>
 
-<section id="next-section">
-  <p class="label">Explore Destinations</p>
-  <h2>Where will you<br>go next?</h2>
-  <p>Unique travel destinations await to spark curiosity and inspire your next adventure.</p>
-  <button class="cta">Explore Now</button>
-</section>
-
 <div class="section-header">
   <div>
     <p class="header-label">Our destinations</p>
@@ -396,7 +342,6 @@
   const sticky       = document.getElementById('sticky-container');
   const progressBar  = document.getElementById('progress-bar');
   const scrollHint   = document.getElementById('scroll-hint');
-  const nextSection  = document.getElementById('next-section');
 
   /* ---------- CANVAS SIZING (object-fit: cover) ---------- */
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -496,17 +441,6 @@
             gsap.to(scrollHint, { opacity: 0, duration: 0.4, overwrite: true });
           } else {
             gsap.to(scrollHint, { opacity: 1, duration: 0.4, overwrite: true });
-          }
-
-          if (p >= 0.95) {
-            gsap.to(nextSection, {
-              opacity: 1, y: 0, duration: 0.9,
-              ease: 'power2.out', overwrite: true
-            });
-          } else {
-            gsap.to(nextSection, {
-              opacity: 0, y: 40, duration: 0.4, overwrite: true
-            });
           }
         },
       },
