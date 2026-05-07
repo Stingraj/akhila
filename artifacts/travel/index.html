@@ -487,14 +487,18 @@ gsap.registerPlugin(ScrollTrigger);
     .join(' ');
   const spans = body.querySelectorAll('.exp-word');
 
-  section.style.height = (spans.length * 60 + window.innerHeight) + 'px';
+  const totalWords = spans.length;
+  section.style.height = (totalWords * 45 + window.innerHeight) + 'px';
 
   const tl = gsap.timeline();
   tl.to(spans, {
     color: '#1a1a1a',
-    ease: 'none',
-    stagger: 0.5,
-    duration: 0.5,
+    ease: 'power1.inOut',
+    stagger: {
+      each: 0.3,
+      ease: 'none',
+    },
+    duration: 0.001,
   });
 
   ScrollTrigger.create({
@@ -502,7 +506,7 @@ gsap.registerPlugin(ScrollTrigger);
     start: 'top top',
     end: 'bottom bottom',
     animation: tl,
-    scrub: 1,
+    scrub: 2,
     pin: '#exploration-sticky',
     pinSpacing: false,
   });
