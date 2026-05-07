@@ -1,0 +1,58 @@
+Here is the revised implementation plan:
+
+1. Section Structure (Section 2):
+
+Insert a new container <div id="text-reveal-section"> right after the .section-header.
+
+CSS for Container: position: relative, height: 200vh (to provide scrolling space for the sticky effect).
+
+Inside, add a child <div> called .sticky-content.
+
+CSS for .sticky-content: position: sticky, top: 0, height: 100vh, display: flex, justify-content: center, align-items: center, overflow: hidden, background-color: #f0ede8 (start color).
+
+2. Static Text Block & Styling:
+
+Add a single, large block of static text inside .sticky-content.
+
+Content (from reference): Use stacked phrases in uppercase, bold:
+'YOUR UNFORGETTABLE
+
+
+ADVENTURE IS HERE.
+
+
+BEGIN THE
+
+
+ULTIMATE ESCAPE.
+
+
+LUXURY AWAITS.'
+
+Styling: Inter font, Bold (700), uppercase, centered (text-align: center), large font size (6vw to 8vw), line-height approx 1.1.
+
+3. Two-Layer Color Reveal Mechanism:
+
+Initial State: The text must have a very low contrast against the starting background (#f0ede8). Give the text a light gray color (e.g., #bbb).
+
+The Reveal: As the user scrolls, the text color must transition to pure Black (#000), AND the background color of .sticky-content must transition to pure Black (#000).
+
+Scrape Effect (Crucial): This color change needs to visually sweep across the text block from bottom to top.
+
+Recommended Implementation: Use background-clip: text on the text block. Give the text a transparent color. Set its background to a linear gradient that transitions from the initial light gray (#bbb) to pure black (#000). GSAP will then animate the vertical position of this gradient (background-position) from bottom to top based on scroll progress.
+
+4. GSAP ScrollTrigger Animation:
+
+Pin the ScrollTrigger to #text-reveal-section.
+
+Animation (Scrub: true):
+
+Transition the background color of .sticky-content from #f0ede8 to #000.
+
+Animate the background-position of the text block's gradient from 'bottom' to 'top', creating the 'scrape' effect.
+
+Ensure the entire text block is solid black on a solid black background by the end of Section 2's scroll.
+
+5. CRITICAL CONSTRAINT:
+
+DO NOT alter, rewrite, or break the existing GSAP logic, timeline, or HTML structure of the #scroll-wrapper (the split-screen destinations section). Make sure Section 2 ends cleanly, allowing Section 3 to begin its sticky animation immediately after.
