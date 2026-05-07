@@ -1,0 +1,10 @@
+<div id="text-section" style="background:#f0ede8; padding: 120px 60px; min-height:100vh; display:flex; flex-direction:column; justify-content:center; overflow:hidden; font-family:'Georgia',serif;">
+  <p class="eyebrow" style="font-family:'Inter',sans-serif; font-size:11px; letter-spacing:0.35em; text-transform:uppercase; color:#aaa; margin-bottom:48px; opacity:0;">Our destinations</p>
+  <div class="line-wrap" style="overflow:hidden; margin-bottom:6px;"><span class="text-line" style="font-family:'Playfair Display',serif; font-size:clamp(42px,6vw,80px); font-weight:400; line-height:1.05; color:#1a1a1a; display:block; transform:translateY(110%);">Step through the door</span></div>
+  <div class="line-wrap" style="overflow:hidden; margin-bottom:6px;"><span class="text-line" style="font-family:'Playfair Display',serif; font-size:clamp(42px,6vw,80px); font-weight:400; line-height:1.05; color:#1a1a1a; display:block; transform:translateY(110%);">to the world's most</span></div>
+  <div class="line-wrap" style="overflow:hidden; margin-bottom:6px;"><span class="text-line" style="font-family:'Playfair Display',serif; font-size:clamp(42px,6vw,80px); font-weight:400; line-height:1.05; color:#1a1a1a; font-style:italic; display:block; transform:translateY(110%);">extraordinary places.</span></div>
+  <div class="sub-wrap" style="margin-top:48px; display:flex; gap:80px; opacity:0;">
+    <div style="max-width:280px;"><p style="font-family:'Inter',sans-serif; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:#bbb; margin-bottom:10px;">About</p><p style="font-family:'Inter',sans-serif; font-size:14px; color:#999; line-height:1.8;">Every destination is handpicked by our team. No sponsored listings, no compromises.</p></div>
+    <div style="max-width:280px;"><p style="font-family:'Inter',sans-serif; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:#bbb; margin-bottom:10px;">Our approach</p><p style="font-family:'Inter',sans-serif; font-size:14px; color:#999; line-height:1.8;">We pair each landscape with the experiences that define it. Arrive somewhere new and leave knowing it deeply.</p></div>
+  </div>
+</div>
