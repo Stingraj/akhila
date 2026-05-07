@@ -455,40 +455,29 @@
 
 <script>
 gsap.registerPlugin(ScrollTrigger);
-
 (function initDestinations() {
   const TOTAL = 4;
   const wrapper = document.getElementById('dest-wrapper');
   wrapper.style.height = (TOTAL * 120) + 'vh';
-
   const panelLs = [1,2,3].map(i => document.getElementById('pl'+i));
   const panelRs = [1,2,3].map(i => document.getElementById('pr'+i));
   const cards   = [0,1,2,3].map(i => document.getElementById('card'+i));
   const progs   = [0,1,2,3].map(i => document.getElementById('prog'+i));
   const panels  = [0,1,2,3].map(i => document.getElementById('p'+i));
 
-  // Init z-index layering
   panels.forEach((p, i) => gsap.set(p, { zIndex: i + 1 }));
-
-  // Init panels 1,2,3 hidden via clip-path
   panelLs.forEach(el => gsap.set(el, { clipPath: 'inset(100% 0% 0% 0%)' }));
   panelRs.forEach(el => gsap.set(el, { clipPath: 'inset(0% 0% 100% 0%)' }));
   [1,2,3].forEach(i => gsap.set(cards[i], { opacity: 0 }));
 
-  // Master timeline — 3 transitions (dest 0→1, 1→2, 2→3)
   const masterTL = gsap.timeline();
 
   [0,1,2].forEach(i => {
-    const pl       = panelLs[i];
-    const pr       = panelRs[i];
-    const card     = cards[i + 1];
-    const progPrev = progs[i];
-
     masterTL
-      .to(progPrev, { width: '100%', ease: 'none', duration: 1 })
-      .to(pl, { clipPath: 'inset(0% 0% 0% 0%)', ease: 'power2.inOut', duration: 1.2 }, '<')
-      .to(pr, { clipPath: 'inset(0% 0% 0% 0%)', ease: 'power2.inOut', duration: 1.2 }, '<0.1')
-      .to(card, { opacity: 1, ease: 'power2.out', duration: 0.6 }, '<0.5');
+      .to(progs[i],     { width: '100%', ease: 'none', duration: 1 })
+      .to(panelLs[i],   { clipPath: 'inset(0% 0% 0% 0%)', ease: 'power2.inOut', duration: 1.2 }, '<')
+      .to(panelRs[i],   { clipPath: 'inset(0% 0% 0% 0%)', ease: 'power2.inOut', duration: 1.2 }, '<0.1')
+      .to(cards[i + 1], { opacity: 1, ease: 'power2.out', duration: 0.6 }, '<0.5');
   });
 
   ScrollTrigger.create({
@@ -497,6 +486,8 @@ gsap.registerPlugin(ScrollTrigger);
     end: 'bottom bottom',
     animation: masterTL,
     scrub: 1.5,
+    pin: '#dest-stage',
+    pinSpacing: false,
   });
 })();
 </script>
