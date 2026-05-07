@@ -225,14 +225,16 @@
   </div>
 </div>
 
-<div id="text-section" style="background:#f0ede8; padding: 120px 60px; min-height:100vh; display:flex; flex-direction:column; justify-content:center; overflow:hidden; font-family:'Georgia',serif;">
-  <p class="eyebrow" style="font-family:'Inter',sans-serif; font-size:11px; letter-spacing:0.35em; text-transform:uppercase; color:#aaa; margin-bottom:48px; opacity:0;">Our destinations</p>
-  <div class="line-wrap" style="overflow:hidden; margin-bottom:6px;"><span class="text-line" style="font-family:'Playfair Display',serif; font-size:clamp(42px,6vw,80px); font-weight:400; line-height:1.05; color:#1a1a1a; display:block; transform:translateY(110%);">Step through the door</span></div>
-  <div class="line-wrap" style="overflow:hidden; margin-bottom:6px;"><span class="text-line" style="font-family:'Playfair Display',serif; font-size:clamp(42px,6vw,80px); font-weight:400; line-height:1.05; color:#1a1a1a; display:block; transform:translateY(110%);">to the world's most</span></div>
-  <div class="line-wrap" style="overflow:hidden; margin-bottom:6px;"><span class="text-line" style="font-family:'Playfair Display',serif; font-size:clamp(42px,6vw,80px); font-weight:400; line-height:1.05; color:#1a1a1a; font-style:italic; display:block; transform:translateY(110%);">extraordinary places.</span></div>
-  <div class="sub-wrap" style="margin-top:48px; display:flex; gap:80px; opacity:0;">
-    <div style="max-width:280px;"><p style="font-family:'Inter',sans-serif; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:#bbb; margin-bottom:10px;">About</p><p style="font-family:'Inter',sans-serif; font-size:14px; color:#999; line-height:1.8;">Every destination is handpicked by our team. No sponsored listings, no compromises.</p></div>
-    <div style="max-width:280px;"><p style="font-family:'Inter',sans-serif; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:#bbb; margin-bottom:10px;">Our approach</p><p style="font-family:'Inter',sans-serif; font-size:14px; color:#999; line-height:1.8;">We pair each landscape with the experiences that define it. Arrive somewhere new and leave knowing it deeply.</p></div>
+<div id="text-section" style="background:#f0ede8; height:300vh; position:relative; font-family:'Georgia',serif;">
+  <div id="text-sticky" style="position:sticky; top:0; height:100vh; display:flex; flex-direction:column; justify-content:center; padding:120px 60px;">
+    <p class="eyebrow" style="font-family:'Inter',sans-serif; font-size:11px; letter-spacing:0.35em; text-transform:uppercase; color:#aaa; margin-bottom:48px; opacity:0;">Our destinations</p>
+    <div style="font-family:'Playfair Display',serif; font-size:clamp(42px,6vw,80px); font-weight:400; line-height:1.05; margin-bottom:6px;"><span class="word" style="display:inline-block; color:#ddd;">Step</span> <span class="word" style="display:inline-block; color:#ddd;">through</span> <span class="word" style="display:inline-block; color:#ddd;">the</span> <span class="word" style="display:inline-block; color:#ddd;">door</span></div>
+    <div style="font-family:'Playfair Display',serif; font-size:clamp(42px,6vw,80px); font-weight:400; line-height:1.05; margin-bottom:6px;"><span class="word" style="display:inline-block; color:#ddd;">to</span> <span class="word" style="display:inline-block; color:#ddd;">the</span> <span class="word" style="display:inline-block; color:#ddd;">world's</span> <span class="word" style="display:inline-block; color:#ddd;">most</span></div>
+    <div style="font-family:'Playfair Display',serif; font-size:clamp(42px,6vw,80px); font-weight:400; line-height:1.05; font-style:italic; margin-bottom:6px;"><span class="word" style="display:inline-block; color:#ddd;">extraordinary</span> <span class="word" style="display:inline-block; color:#ddd;">places.</span></div>
+    <div class="sub-wrap" style="margin-top:48px; display:flex; gap:80px; opacity:0;">
+      <div style="max-width:280px;"><p style="font-family:'Inter',sans-serif; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:#bbb; margin-bottom:10px;">About</p><p style="font-family:'Inter',sans-serif; font-size:14px; color:#999; line-height:1.8;">Every destination is handpicked by our team. No sponsored listings, no compromises.</p></div>
+      <div style="max-width:280px;"><p style="font-family:'Inter',sans-serif; font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:#bbb; margin-bottom:10px;">Our approach</p><p style="font-family:'Inter',sans-serif; font-size:14px; color:#999; line-height:1.8;">We pair each landscape with the experiences that define it. Arrive somewhere new and leave knowing it deeply.</p></div>
+    </div>
   </div>
 </div>
 
@@ -476,24 +478,29 @@ gsap.registerPlugin(ScrollTrigger);
   });
 
   const textSection = document.getElementById('text-section');
+  const words = textSection.querySelectorAll('.word');
   const eyebrow = textSection.querySelector('.eyebrow');
-  const lines = textSection.querySelectorAll('.text-line');
   const subWrap = textSection.querySelector('.sub-wrap');
 
-  const textTL = gsap.timeline({
+  gsap.set(words, { color: '#ddd' });
+  gsap.set(eyebrow, { opacity: 1 });
+
+  const wordTL = gsap.timeline({
     scrollTrigger: {
       trigger: textSection,
-      start: 'top 75%',
-      toggleActions: 'play none none reverse',
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 1,
     }
   });
-
-  textTL
-    .to(eyebrow, { opacity: 1, duration: 0.6, ease: 'power2.out' })
-    .to(lines[0], { y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.3')
-    .to(lines[1], { y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.7')
-    .to(lines[2], { y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.7')
-    .to(subWrap,  { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '-=0.4');
+  wordTL
+    .to(words, {
+      color: '#1a1a1a',
+      stagger: 0.5,
+      ease: 'none',
+      duration: 1,
+    })
+    .to(subWrap, { opacity: 1, duration: 0.5 }, '-=0.3');
 })();
 </script>
 </body>
