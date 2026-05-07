@@ -225,6 +225,12 @@
   </div>
 </div>
 
+<div id="marquee-section" style="background:#000; height:100vh; overflow:hidden; display:flex; flex-direction:column; justify-content:center; gap:20px;">
+  <div class="marquee-row" style="color:#fff; font-family:'Inter',sans-serif; font-size:8vw; font-weight:700; text-transform:uppercase; white-space:nowrap; line-height:1;">YOUR UNFORGETTABLE ADVENTURE IS HERE — YOUR UNFORGETTABLE ADVENTURE IS HERE — YOUR UNFORGETTABLE ADVENTURE IS HERE — YOUR UNFORGETTABLE ADVENTURE IS HERE — </div>
+  <div class="marquee-row" style="color:#fff; font-family:'Inter',sans-serif; font-size:8vw; font-weight:700; text-transform:uppercase; white-space:nowrap; line-height:1; transform:translateX(-20%);">BEGIN THE ULTIMATE ESCAPE TODAY — BEGIN THE ULTIMATE ESCAPE TODAY — BEGIN THE ULTIMATE ESCAPE TODAY — BEGIN THE ULTIMATE ESCAPE TODAY — </div>
+  <div class="marquee-row" style="color:#fff; font-family:'Inter',sans-serif; font-size:8vw; font-weight:700; text-transform:uppercase; white-space:nowrap; line-height:1;">LUXURY AWAITS. YOUR ADVENTURE BEGINS — LUXURY AWAITS. YOUR ADVENTURE BEGINS — LUXURY AWAITS. YOUR ADVENTURE BEGINS — LUXURY AWAITS. YOUR ADVENTURE BEGINS — </div>
+</div>
+
 <div id="dest-wrapper">
   <div id="dest-stage">
 
@@ -464,6 +470,22 @@ gsap.registerPlugin(ScrollTrigger);
     },
   });
 
+})();
+
+(function initMarquee() {
+  const rows = document.querySelectorAll('#marquee-section .marquee-row');
+  if (rows.length < 3) return;
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: '#marquee-section',
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: 1,
+    }
+  });
+  tl.to(rows[0], { xPercent: -30, ease: 'none' }, 0);
+  tl.to(rows[1], { xPercent: 30,  ease: 'none' }, 0);
+  tl.to(rows[2], { xPercent: -30, ease: 'none' }, 0);
 })();
 </script>
 </body>
