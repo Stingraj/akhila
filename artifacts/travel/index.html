@@ -17,43 +17,6 @@
   body { overflow-y: auto; }
   html { overflow-y: visible; }
 
-  /* ---- LOADER ---- */
-  #loader {
-    position: fixed; inset: 0;
-    background: #0a0806;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 1.25rem;
-    z-index: 1000;
-    transition: opacity 0.6s ease;
-    color: #f5edd8;
-  }
-  #loader.hidden { opacity: 0; pointer-events: none; }
-  #loader .label {
-    font-size: 0.7rem;
-    letter-spacing: 0.5em;
-    text-transform: uppercase;
-    color: rgba(245,237,216,0.7);
-  }
-  #loader-bar {
-    width: min(320px, 60vw);
-    height: 2px;
-    background: rgba(255,255,255,0.12);
-    overflow: hidden;
-  }
-  #loader-bar > span {
-    display: block;
-    width: 0%;
-    height: 100%;
-    background: #f5edd8;
-    transition: width 0.15s linear;
-  }
-  #loader .pct {
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
-    color: rgba(245,237,216,0.5);
-  }
-
   /* ---- CANVAS SECTION ---- */
   #canvas-wrapper {
     position: relative;
@@ -102,25 +65,6 @@
   @keyframes pulse {
     0%, 100% { opacity: 0.3; transform: scaleY(0.8); }
     50%     { opacity: 1;   transform: scaleY(1.2); }
-  }
-
-  #video-overlay {
-    position: absolute; inset: 0;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: flex-end;
-    padding-bottom: 5rem;
-    pointer-events: none;
-    z-index: 5;
-    opacity: 0;
-  }
-  #video-overlay h2 {
-    font-size: clamp(2rem, 5vw, 4.5rem);
-    color: #fff;
-    letter-spacing: 0.1em;
-    text-align: center;
-    font-weight: 400;
-    text-shadow: 0 2px 30px rgba(0,0,0,0.4);
-    line-height: 1.2;
   }
 
   /* ---- NEXT SECTION ---- */
@@ -173,21 +117,11 @@
 </head>
 <body>
 
-<div id="loader">
-  <div class="label">Loading Frames</div>
-  <div id="loader-bar"><span></span></div>
-  <div class="pct">0%</div>
-</div>
-
 <div id="canvas-wrapper">
   <div id="sticky-container">
     <canvas id="frame-canvas"></canvas>
 
     <div id="progress-bar"></div>
-
-    <div id="video-overlay">
-      <h2>Step Into a World<br>of Discoveries</h2>
-    </div>
 
     <div id="scroll-hint">
       <span>Scroll</span>
@@ -219,11 +153,7 @@
   const sticky       = document.getElementById('sticky-container');
   const progressBar  = document.getElementById('progress-bar');
   const scrollHint   = document.getElementById('scroll-hint');
-  const videoOverlay = document.getElementById('video-overlay');
   const nextSection  = document.getElementById('next-section');
-  const loader       = document.getElementById('loader');
-  const loaderFill   = document.querySelector('#loader-bar > span');
-  const loaderPct    = document.querySelector('#loader .pct');
 
   /* ---------- CANVAS SIZING (object-fit: cover) ---------- */
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -264,19 +194,13 @@
   const images = new Array(frameCount);
   let loaded = 0;
 
-  function setLoaderProgress(p) {
-    const pct = Math.round(p * 100);
-    loaderFill.style.width = pct + '%';
-    loaderPct.textContent = pct + '%';
-  }
-
   function preloadAll() {
     return new Promise((resolve) => {
       for (let i = 0; i < frameCount; i++) {
         const img = new Image();
         img.onload = img.onerror = () => {
           loaded++;
-          setLoaderProgress(loaded / frameCount);
+          if (i === 0) render();
           if (loaded === frameCount) resolve();
         };
         img.src = currentFrame(i);
@@ -331,15 +255,6 @@
             gsap.to(scrollHint, { opacity: 1, duration: 0.4, overwrite: true });
           }
 
-          if (p > 0.20) {
-            gsap.to(videoOverlay, {
-              opacity: Math.min((p - 0.20) * 2, 0.95),
-              duration: 0.3, overwrite: true
-            });
-          } else {
-            gsap.to(videoOverlay, { opacity: 0, duration: 0.3, overwrite: true });
-          }
-
           if (p >= 0.95) {
             gsap.to(nextSection, {
               opacity: 1, y: 0, duration: 0.9,
@@ -365,11 +280,9 @@
 
   /* ---------- BOOT ---------- */
   resizeCanvas();
+  initScroll();
   preloadAll().then(() => {
     render();
-    initScroll();
-    loader.classList.add('hidden');
-    setTimeout(() => loader.remove(), 800);
   });
 </script>
 </body>
