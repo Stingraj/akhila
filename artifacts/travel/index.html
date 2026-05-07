@@ -225,31 +225,6 @@
   </div>
 </div>
 
-<div id="text-reveal-section" style="background:#f0ede8; position:relative;">
-  <div id="text-reveal-sticky" style="position:sticky; top:0; height:100vh; display:flex; align-items:center; padding:0 80px; overflow:hidden;">
-    <div id="text-reveal-inner" style="font-family:'Inter',sans-serif; font-weight:700; text-transform:uppercase; font-size:clamp(32px,5.5vw,100px); line-height:1.15; color:#1a1a1a;">
-      <div class="reveal-line" style="overflow:hidden; display:block;">
-        <span class="reveal-word" style="display:inline-block; transform:translateY(110%); opacity:0; color:#d3d0cb;">Your</span>&nbsp;
-        <span class="reveal-word" style="display:inline-block; transform:translateY(110%); opacity:0; color:#d3d0cb;">unforgettable</span>&nbsp;
-        <span class="reveal-word" style="display:inline-block; transform:translateY(110%); opacity:0; color:#d3d0cb;">adventure</span>&nbsp;
-        <span class="reveal-word" style="display:inline-block; transform:translateY(110%); opacity:0; color:#d3d0cb;">is</span>&nbsp;
-        <span class="reveal-word" style="display:inline-block; transform:translateY(110%); opacity:0; color:#d3d0cb;">here.</span>
-      </div>
-      <div class="reveal-line" style="overflow:hidden; display:block;">
-        <span class="reveal-word" style="display:inline-block; transform:translateY(110%); opacity:0; color:#d3d0cb;">Begin</span>&nbsp;
-        <span class="reveal-word" style="display:inline-block; transform:translateY(110%); opacity:0; color:#d3d0cb;">the</span>&nbsp;
-        <span class="reveal-word" style="display:inline-block; transform:translateY(110%); opacity:0; color:#d3d0cb;">ultimate</span>&nbsp;
-        <span class="reveal-word" style="display:inline-block; transform:translateY(110%); opacity:0; color:#d3d0cb;">escape.</span>
-      </div>
-      <div class="reveal-line" style="overflow:hidden; display:block;">
-        <span class="reveal-word" style="display:inline-block; transform:translateY(110%); opacity:0; color:#d3d0cb;">Luxury</span>&nbsp;
-        <span class="reveal-word" style="display:inline-block; transform:translateY(110%); opacity:0; color:#d3d0cb;">awaits</span>&nbsp;
-        <span class="reveal-word" style="font-style:italic; display:inline-block; transform:translateY(110%); opacity:0; color:#d3d0cb;">you.</span>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div id="dest-wrapper">
   <div id="dest-stage">
 
@@ -491,34 +466,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 })();
 
-(function initTextReveal() {
-  const section = document.getElementById('text-reveal-section');
-  const words = section.querySelectorAll('.reveal-word');
-  section.style.height = (words.length * 80 + window.innerHeight) + 'px';
-
-  const tl = gsap.timeline();
-  tl.to(words, {
-    translateY: 0,
-    opacity: 1,
-    color: '#1a1a1a',
-    duration: 0.4,
-    ease: 'power2.out',
-    stagger: {
-      each: 0.4,
-      ease: 'none',
-    }
-  });
-
-  ScrollTrigger.create({
-    trigger: section,
-    start: 'top top',
-    end: 'bottom bottom',
-    animation: tl,
-    scrub: 1,
-    pin: '#text-reveal-sticky',
-    pinSpacing: false,
-  });
-})();
 </script>
 </body>
 </html>
