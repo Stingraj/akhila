@@ -386,12 +386,13 @@
   if (!section || !cloudsImg || !windowImg) return;
 
   gsap.to(cloudsImg, {
-    y: '-40%',
+    y: '-55%',
+    x: '-20%',
     ease: 'none',
     scrollTrigger: {
       trigger: section,
       start: 'top top',
-      end: '50% bottom',
+      end: 'bottom bottom',
       scrub: 1,
     }
   });
