@@ -1,0 +1,67 @@
+The client loved the idea of using the black scroll gap as a cinematic typographic transition. We will use a 'palate cleanser' text effect instead of forcing the overlapping crossfade. Please update the index.html file exactly as follows:
+
+1. HTML Update:
+Inside the #window-sticky container, add a new text element right after #airplane-window:
+
+HTML
+<div id="cinematic-text">Your Next Escape Awaits</div>
+2. CSS Updates (in the <style> tag):
+Remove the negative margin from #destinations-section to restore natural scrolling flow, and style the new text:
+
+CSS
+#destinations-section {
+  position: relative;
+  background: #0a0806;
+  z-index: 1;
+}
+
+#cinematic-text {
+  position: absolute;
+  z-index: 20;
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 4vw, 56px);
+  font-style: italic;
+  letter-spacing: 0.05em;
+  opacity: 0; /* Hidden by default */
+  pointer-events: none;
+}
+(Make sure to remove any margin-top: -200vh or position: sticky that was previously added to #destinations-section or .dest-full, let them be normal relative sections again).
+
+3. GSAP Logic Update:
+Replace the initWindowSection() function with this perfectly timed sequential timeline:
+
+JavaScript
+(function initWindowSection() {
+  const section = document.getElementById('window-section');
+  const cloudsImg = document.getElementById('clouds-img');
+  const windowImg = document.getElementById('window-img');
+  const cineText = document.getElementById('cinematic-text');
+  if (!section || !cloudsImg || !windowImg) return;
+
+  // Create a master timeline for the window section
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: section,
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 1,
+    }
+  });
+
+  // 1. Move clouds slightly
+  tl.to(cloudsImg, { y: '-10%', x: '-10%', ease: 'none', duration: 2 }, 0);
+
+  // 2. Zoom window 
+  tl.to(windowImg, { scale: 25, ease: 'power2.in', duration: 2 }, 0);
+
+  // 3. Fade out clouds and window early
+  tl.to([cloudsImg, windowImg], { opacity: 0, ease: 'power2.inOut', duration: 1 }, 1.5);
+
+  // 4. Fade IN the cinematic text in the black void
+  tl.to(cineText, { opacity: 1, y: -20, ease: 'power1.out', duration: 1 }, 2.5);
+
+  // 5. Fade OUT the cinematic text before leaving the section
+  tl.to(cineText, { opacity: 0, y: -40, ease: 'power1.in', duration: 1 }, 4.0);
+})();
+STRICT RULE: Implement the cinematic text sequentially as defined in the timeline. Restore #destinations-section to a normal static flow (no negative margin) so it naturally appears after the cinematic text fades ou

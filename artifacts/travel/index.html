@@ -118,14 +118,23 @@
   #destinations-section {
     position: relative;
     background: #0a0806;
-    opacity: 0;
-    margin-top: -200vh;
     z-index: 1;
   }
 
+  #cinematic-text {
+    position: absolute;
+    z-index: 20;
+    color: #fff;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 56px);
+    font-style: italic;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    pointer-events: none;
+  }
+
   .dest-full {
-    position: sticky;
-    top: 0;
+    position: relative;
     width: 100%;
     height: 100vh;
     overflow: hidden;
@@ -270,6 +279,7 @@
     <div id="airplane-window">
       <img src="/images/Door.png" alt="" id="window-img">
     </div>
+    <div id="cinematic-text">Your Next Escape Awaits</div>
   </div>
 </div>
 
@@ -519,58 +529,33 @@
   const section = document.getElementById('window-section');
   const cloudsImg = document.getElementById('clouds-img');
   const windowImg = document.getElementById('window-img');
-  const destinations = document.getElementById('destinations-section');
+  const cineText = document.getElementById('cinematic-text');
   if (!section || !cloudsImg || !windowImg) return;
 
-  gsap.to(cloudsImg, {
-    y: '-10%',
-    x: '-10%',
-    ease: 'none',
+  // Create a master timeline for the window section
+  const tl = gsap.timeline({
     scrollTrigger: {
       trigger: section,
       start: 'top top',
-      end: '60% top',
+      end: 'bottom bottom',
       scrub: 1,
     }
   });
 
-  gsap.to(windowImg, {
-    scale: 25,
-    ease: 'power2.in',
-    scrollTrigger: {
-      trigger: section,
-      start: 'top top',
-      end: '50% top',
-      scrub: 1.2,
-    }
-  });
+  // 1. Move clouds slightly
+  tl.to(cloudsImg, { y: '-10%', x: '-10%', ease: 'none', duration: 2 }, 0);
 
-  // Fades out exactly while locked in place
-  gsap.to([cloudsImg, windowImg], {
-    opacity: 0,
-    ease: 'power2.inOut',
-    scrollTrigger: {
-      trigger: section,
-      start: '35% top',
-      end: '60% top',
-      scrub: 1,
-    }
-  });
+  // 2. Zoom window
+  tl.to(windowImg, { scale: 25, ease: 'power2.in', duration: 2 }, 0);
 
-  // Fades in seamlessly right underneath
-  gsap.fromTo('#destinations-section',
-    { opacity: 0 },
-    {
-      opacity: 1,
-      ease: 'power2.inOut',
-      scrollTrigger: {
-        trigger: section,
-        start: '35% top',
-        end: '60% top',
-        scrub: 1,
-      }
-    }
-  );
+  // 3. Fade out clouds and window early
+  tl.to([cloudsImg, windowImg], { opacity: 0, ease: 'power2.inOut', duration: 1 }, 1.5);
+
+  // 4. Fade IN the cinematic text in the black void
+  tl.to(cineText, { opacity: 1, y: -20, ease: 'power1.out', duration: 1 }, 2.5);
+
+  // 5. Fade OUT the cinematic text before leaving the section
+  tl.to(cineText, { opacity: 0, y: -40, ease: 'power1.in', duration: 1 }, 4.0);
 })();
 
 </script>
