@@ -343,11 +343,9 @@
       dw = cw;
       dh = cw / ir;
     }
-    // For viewports below 1920px wide, scale up to guarantee full coverage
-    const baseScale = Math.max(cw / dw, ch / dh);
-    const extraScale = cw < 1920 * dpr ? Math.max(1, 1920 / (cw / dpr)) * baseScale : baseScale;
-    dw = dw * extraScale;
-    dh = dh * extraScale;
+    const scale = Math.max(cw / dw, ch / dh);
+    dw *= scale;
+    dh *= scale;
     const dx = (cw - dw) / 2;
     const dy = (ch - dh) / 2;
     ctx.drawImage(img, dx, dy, dw, dh);
