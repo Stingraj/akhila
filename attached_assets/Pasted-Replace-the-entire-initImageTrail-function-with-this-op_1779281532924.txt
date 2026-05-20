@@ -1,0 +1,83 @@
+Replace the entire initImageTrail() function with this optimized version using object pooling to eliminate lag:
+js(function initImageTrail() {
+  const section = document.getElementById('exploration-section');
+  if (!section) return;
+
+  const trailImages = [
+    '/images/Moraine Lake.png',
+    '/images/Tokyo.png',
+    '/images/Amalfi Coast.png',
+    '/images/Maldives.png',
+    '/images/Moraine Lake Left.png',
+    '/images/Tokyo left.png',
+    '/images/Amalfi Coast left.png',
+    '/images/maldives left.png',
+  ];
+
+  const POOL_SIZE = 12;
+  const pool = [];
+
+  for (let i = 0; i < POOL_SIZE; i++) {
+    const img = document.createElement('img');
+    img.className = 'trail-img';
+    img.style.opacity = '0';
+    img.style.position = 'fixed';
+    img.style.pointerEvents = 'none';
+    img.style.zIndex = '9000';
+    img.style.willChange = 'transform, opacity';
+    document.body.appendChild(img);
+    pool.push({ el: img, active: false });
+  }
+
+  function getPoolItem() {
+    return pool.find(p => !p.active) || pool[0];
+  }
+
+  let lastX = 0;
+  let lastY = 0;
+  let imgIndex = 0;
+  const threshold = 80;
+
+  section.addEventListener('mousemove', (e) => {
+    const dx = e.clientX - lastX;
+    const dy = e.clientY - lastY;
+    if (Math.sqrt(dx * dx + dy * dy) < threshold) return;
+
+    lastX = e.clientX;
+    lastY = e.clientY;
+
+    const item = getPoolItem();
+    item.active = true;
+    item.el.src = trailImages[imgIndex % trailImages.length];
+    imgIndex++;
+
+    const w = item.el.offsetWidth || 160;
+    const h = item.el.offsetHeight || 110;
+    gsap.killTweensOf(item.el);
+    gsap.set(item.el, {
+      left: e.clientX - w / 2,
+      top: e.clientY - h / 2,
+      scale: 1,
+      opacity: 1,
+    });
+    gsap.to(item.el, {
+      opacity: 0,
+      scale: 1.35,
+      duration: 1.0,
+      ease: 'power2.out',
+      onComplete: () => { item.active = false; }
+    });
+  });
+
+  section.addEventListener('mouseleave', () => {
+    pool.forEach(item => {
+      gsap.killTweensOf(item.el);
+      gsap.to(item.el, {
+        opacity: 0,
+        duration: 0.2,
+        onComplete: () => { item.active = false; }
+      });
+    });
+  });
+})();
+Do not change anything else.
