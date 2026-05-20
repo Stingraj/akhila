@@ -20,13 +20,13 @@
   #canvas-wrapper {
     position: relative;
     width: 100%;
-    height: 800svh;
+    /* JS sets actual scroll distance via ScrollTrigger end; height here is a placeholder */
   }
   #sticky-container {
     position: sticky;
     top: 0;
     width: 100%;
-    height: 100svh;
+    height: 100vh;
     overflow: hidden;
     background: #0a0806;
   }
@@ -381,32 +381,33 @@
   }
 
   function initScroll() {
-    /* Lenis smooth scroll — single RAF loop via gsap.ticker */
+    /* Lenis smooth scroll */
     const lenis = new Lenis({
       duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       smoothTouch: false,
     });
-
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
     lenis.on('scroll', ScrollTrigger.update);
-
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
-
+    gsap.ticker.add((time) => lenis.raf(time * 1000));
     gsap.ticker.lagSmoothing(0);
 
-    /* Frame scrub — drives progress only, no pin (CSS sticky handles layout) */
+    /* Frame scrub */
     gsap.to(state, {
       frame: frameCount - 1,
       ease: 'none',
       scrollTrigger: {
         trigger: wrapper,
         start: 'top top',
-        end: 'bottom bottom',
+        end: () => '+=' + (window.innerHeight * 7),
         scrub: 0.5,
-        invalidateOnRefresh: true,
+        pin: sticky,
+        anticipatePin: 1,
         onUpdate: (self) => {
           const p = self.progress;
           progressBar.style.width = (p * 100) + '%';
@@ -421,16 +422,13 @@
       onUpdate: render,
     });
 
-    /* Debounced resize — avoids ResizeObserver refresh loops */
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        resizeCanvas();
-        render();
-        ScrollTrigger.refresh();
-      }, 150);
-    }, { passive: true });
+    /* Resize handling */
+    const ro = new ResizeObserver(() => {
+      resizeCanvas();
+      render();
+      if (scrollReady) ScrollTrigger.refresh();
+    });
+    ro.observe(sticky);
 
     scrollReady = true;
   }
@@ -472,6 +470,8 @@
     end: 'bottom bottom',
     animation: masterTL,
     scrub: 1.5,
+    pin: '#dest-stage',
+    pinSpacing: false,
     snap: {
       snapTo: 1 / 3,
       duration: { min: 0.3, max: 0.8 },
@@ -512,6 +512,8 @@
     end: 'bottom bottom',
     animation: tl,
     scrub: 2,
+    pin: '#exploration-sticky',
+    pinSpacing: false,
   });
 })();
 
