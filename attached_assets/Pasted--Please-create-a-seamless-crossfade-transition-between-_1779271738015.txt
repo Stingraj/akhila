@@ -1,0 +1,84 @@
+"Please create a seamless crossfade transition between the #window-section and #destinations-section to eliminate the black gap. Update the index.html file with the following exact changes:
+
+1. CSS Updates (in the <style> tag):
+Update #window-section and #destinations-section to overlap each other perfectly at the end of the scroll:
+
+CSS
+#window-section {
+  position: relative;
+  height: 300vh; /* Reduced from 500vh for better pacing */
+  background: #0a0806;
+  z-index: 2; /* Keep above destinations during fade */
+}
+
+#destinations-section {
+  position: relative;
+  background: #0a0806;
+  opacity: 0;
+  margin-top: -100vh; /* Pulls it up to overlap the end of the window section */
+  z-index: 1; /* Sits behind the fading window */
+}
+2. GSAP Logic Update:
+Replace the entire initWindowSection() function. This perfectly synchronizes the fade-out of the clouds/window with the fade-in of the destinations section:
+
+JavaScript
+(function initWindowSection() {
+  const section = document.getElementById('window-section');
+  const cloudsImg = document.getElementById('clouds-img');
+  const windowImg = document.getElementById('window-img');
+  const destinations = document.getElementById('destinations-section');
+  if (!section || !cloudsImg || !windowImg) return;
+
+  // 1. Clouds panning
+  gsap.to(cloudsImg, {
+    y: '-10%',
+    x: '-10%',
+    ease: 'none',
+    scrollTrigger: {
+      trigger: section,
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 1,
+    }
+  });
+
+  // 2. Window zooming
+  gsap.to(windowImg, {
+    scale: 25,
+    ease: 'power2.in',
+    scrollTrigger: {
+      trigger: section,
+      start: 'top top',
+      end: '70% top',
+      scrub: 1.2,
+    }
+  });
+
+  // 3. Clouds & Window fade out synchronously at the exact overlap point
+  gsap.to([cloudsImg, windowImg], {
+    opacity: 0,
+    ease: 'power2.inOut',
+    scrollTrigger: {
+      trigger: section,
+      start: '50% top',
+      end: 'bottom bottom',
+      scrub: 1,
+    }
+  });
+
+  // 4. Destinations seamlessly fade in underneath
+  gsap.fromTo('#destinations-section',
+    { opacity: 0 },
+    {
+      opacity: 1,
+      ease: 'power2.inOut',
+      scrollTrigger: {
+        trigger: section,
+        start: '50% top',
+        end: 'bottom bottom', // Matches fade out exactly
+        scrub: 1,
+      }
+    }
+  );
+})();
+STRICT RULE: Do not change any other HTML or CSS layout structures. Only apply these specific timing and margin adjustments."

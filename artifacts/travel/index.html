@@ -110,13 +110,17 @@
 
   #window-section {
     position: relative;
-    height: 500vh;
+    height: 300vh;
     background: #0a0806;
+    z-index: 2;
   }
 
   #destinations-section {
+    position: relative;
     background: #0a0806;
     opacity: 0;
+    margin-top: -100vh;
+    z-index: 1;
   }
 
   .dest-full {
@@ -517,7 +521,7 @@
   const destinations = document.getElementById('destinations-section');
   if (!section || !cloudsImg || !windowImg) return;
 
-  // Clouds move slightly less to stay within the safe bounds
+  // 1. Clouds panning
   gsap.to(cloudsImg, {
     y: '-10%',
     x: '-10%',
@@ -525,45 +529,45 @@
     scrollTrigger: {
       trigger: section,
       start: 'top top',
-      end: '60% top',
+      end: 'bottom bottom',
       scrub: 1,
     }
   });
 
-  // Window zooms much larger to clear the screen faster
+  // 2. Window zooming
   gsap.to(windowImg, {
     scale: 25,
     ease: 'power2.in',
     scrollTrigger: {
       trigger: section,
       start: 'top top',
-      end: '50% top',
+      end: '70% top',
       scrub: 1.2,
     }
   });
 
-  // Both window and clouds fade out smoothly and quickly
+  // 3. Clouds & Window fade out synchronously at the exact overlap point
   gsap.to([cloudsImg, windowImg], {
     opacity: 0,
     ease: 'power2.inOut',
     scrollTrigger: {
       trigger: section,
-      start: '40% top',
-      end: '55% top',
+      start: '50% top',
+      end: 'bottom bottom',
       scrub: 1,
     }
   });
 
-  // Destinations section fades in to take over
+  // 4. Destinations seamlessly fade in underneath
   gsap.fromTo('#destinations-section',
     { opacity: 0 },
     {
       opacity: 1,
-      ease: 'power1.out',
+      ease: 'power2.inOut',
       scrollTrigger: {
         trigger: section,
         start: '50% top',
-        end: '70% top',
+        end: 'bottom bottom',
         scrub: 1,
       }
     }
