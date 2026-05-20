@@ -1,0 +1,97 @@
+Fix the hero card in the bottom right of #sticky-container. Replace the existing #hero-card HTML and CSS with this updated version.
+Replace #hero-card HTML with:
+html<div id="hero-card">
+  <div id="hero-card-img-wrap">
+    <img src="/images/Moraine Lake Left.png" alt="Moraine Lake" id="hero-card-img">
+  </div>
+  <div id="hero-card-content">
+    <div id="hero-card-label">Reiseguides · Oct 27, 2024</div>
+    <div id="hero-card-title">18 luxuriöse Urlaubsziele</div>
+    <div id="hero-card-desc">Raw wilderness and crystalline waters nestled deep in the Canadian Rockies.</div>
+    <div id="hero-card-link">Jetzt lesen →</div>
+  </div>
+</div>
+Replace #hero-card CSS with:
+css#hero-card {
+  position: absolute;
+  bottom: clamp(40px, 6.25vw, 120px);
+  right: clamp(40px, 4.7vw, 90px);
+  z-index: 10;
+  display: flex;
+  align-items: stretch;
+  pointer-events: none;
+  height: clamp(80px, 8.96vw, 172px);
+}
+
+#hero-card-img-wrap {
+  width: clamp(132px, 13.23vw, 254px);
+  height: 100%;
+  overflow: hidden;
+  border-radius: 12px 0 0 12px;
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.6);
+}
+
+#hero-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+#hero-card-content {
+  width: clamp(160px, 16.72vw, 321px);
+  height: 100%;
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 0 12px 12px 0;
+  padding: clamp(10px, 1.04vw, 20px) clamp(12px, 1.25vw, 24px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+#hero-card-label {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(9px, 0.57vw, 11px);
+  color: #999;
+  letter-spacing: 0.05em;
+}
+
+#hero-card-title {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(12px, 0.83vw, 16px);
+  font-weight: 600;
+  color: #1a1a1a;
+  line-height: 1.3;
+}
+
+#hero-card-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(10px, 0.63vw, 12px);
+  color: #777;
+  line-height: 1.5;
+  flex: 1;
+}
+
+#hero-card-link {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(10px, 0.63vw, 12px);
+  color: #3b82f6;
+  font-weight: 500;
+}
+Also update #hero-sub CSS to align bottom with the card:
+css#hero-sub {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-size: clamp(14px, 1.25vw, 24px);
+  font-weight: 400;
+  line-height: 1.5;
+  color: #1a2a4a;
+  max-width: clamp(280px, 25vw, 480px);
+  position: absolute;
+  bottom: clamp(40px, 6.25vw, 120px);
+  left: 0;
+}
+Do not change any JavaScript, scroll animations, canvas logic, or other sections.
