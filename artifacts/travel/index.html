@@ -380,6 +380,7 @@
   gsap.registerPlugin(ScrollTrigger);
   /* ---------- CONFIG ---------- */
   let scrollReady = false;
+  let lenis;
   const frameCount = 123;
   const currentFrame = (index) =>
     `/frames/ezgif-frame-${(index + 1).toString().padStart(3, "0")}.jpg`;
@@ -464,7 +465,7 @@
 
   function initScroll() {
     /* Lenis smooth scroll */
-    const lenis = new Lenis({
+    lenis = new Lenis({
       duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
@@ -601,6 +602,8 @@
       if (open) return;
       open = true;
       overlay.style.pointerEvents = 'auto';
+      document.body.style.overflow = 'hidden';
+      if (lenis) lenis.stop();
       gsap.timeline({ defaults: { ease: 'power2.out', duration: 0.6 } })
         .to(overlay,  { autoAlpha: 1, duration: 0.4 })
         .to(frame,    { scale: 1, autoAlpha: 1 }, '<0.05')
@@ -611,6 +614,8 @@
       e.stopPropagation();
       if (!open) return;
       open = false;
+      document.body.style.overflow = '';
+      if (lenis) lenis.start();
       gsap.timeline({
         defaults: { ease: 'power2.in', duration: 0.4 },
         onComplete: () => { overlay.style.pointerEvents = 'none'; },
