@@ -301,6 +301,7 @@
 <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
 <script>
   /* ---------- CONFIG ---------- */
+  let scrollReady = false;
   const frameCount = 123;
   const currentFrame = (index) =>
     `/frames/ezgif-frame-${(index + 1).toString().padStart(3, "0")}.jpg`;
@@ -417,9 +418,11 @@
     const ro = new ResizeObserver(() => {
       resizeCanvas();
       render();
-      ScrollTrigger.refresh();
+      if (scrollReady) ScrollTrigger.refresh();
     });
     ro.observe(sticky);
+
+    scrollReady = true;
   }
 
   /* ---------- BOOT ---------- */
