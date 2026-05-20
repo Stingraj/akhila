@@ -302,10 +302,13 @@
   }
 
   .dest-full {
-    position: relative;
+    position: sticky;
+    top: 0;
     width: 100%;
     height: 100vh;
     overflow: hidden;
+    transform-origin: center top;
+    will-change: transform;
   }
 
   .dest-full img {
@@ -1123,6 +1126,28 @@
     document.body.appendChild(img);
 
     img.addEventListener('animationend', () => img.remove(), { once: true });
+  });
+})();
+
+(function initDestStack() {
+  const panels = document.querySelectorAll('.dest-full');
+  if (!panels.length) return;
+
+  panels.forEach((panel, i) => {
+    if (i === panels.length - 1) return;
+
+    gsap.to(panel, {
+      scale: 0.92,
+      borderRadius: '16px',
+      filter: 'brightness(0.7)',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: panel,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true,
+      }
+    });
   });
 })();
 
