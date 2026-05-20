@@ -336,11 +336,17 @@
     const cr = cw / ch;
     let dw, dh, dx, dy;
     if (ir > cr) {
-      dh = ch; dw = ch * ir;
-      dx = (cw - dw) / 2; dy = 0;
+      // image wider than canvas → fit by height, crop sides
+      dh = ch;
+      dw = ch * ir;
+      dx = (cw - dw) / 2;
+      dy = 0;
     } else {
-      dw = cw; dh = cw / ir;
-      dx = 0; dy = (ch - dh) / 2;
+      // image taller than canvas → fit by width, crop top/bottom
+      dw = cw;
+      dh = cw / ir;
+      dx = 0;
+      dy = (ch - dh) / 2;
     }
     ctx.drawImage(img, dx, dy, dw, dh);
   }
