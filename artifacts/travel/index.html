@@ -108,6 +108,52 @@
     justify-content: space-between;
   }
   footer p { font-size:12px; color:#aaa; letter-spacing:0.15em; text-transform:uppercase; }
+
+  #window-section {
+    position: relative;
+    height: 500vh;
+    background: #87CEEB;
+  }
+  #window-sticky {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #clouds-track {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+  }
+  #clouds-img {
+    height: 100%;
+    width: auto;
+    min-width: 200%;
+    object-fit: cover;
+    will-change: transform;
+  }
+  #airplane-window {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    pointer-events: none;
+  }
+  #window-img {
+    width: 70vw;
+    max-width: 900px;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    will-change: transform;
+    transform-origin: center center;
+  }
 </style>
 </head>
 <body>
@@ -133,6 +179,17 @@
     <p id="exploration-body" style="margin:0; font-family:'Inter',sans-serif; font-weight:500; font-size:clamp(18px,2vw,30px); line-height:1.45; max-width:900px; color:#d3d0cb;">
       Travel is not about results or exchange of experience. It changes us, linking individuals, cultures and destinations in a very meaningful manner. By embracing most unique travel experiences and dreamy destinations, we gain a richer understanding of the world and create unforgettable memories.
     </p>
+  </div>
+</div>
+
+<div id="window-section">
+  <div id="window-sticky">
+    <div id="clouds-track">
+      <img src="/images/clouds.png" alt="" id="clouds-img">
+    </div>
+    <div id="airplane-window">
+      <img src="/images/Door.png" alt="" id="window-img">
+    </div>
   </div>
 </div>
 
@@ -319,6 +376,49 @@
     scrub: 1,
     pin: '#exploration-sticky',
     pinSpacing: false,
+  });
+})();
+
+(function initWindowSection() {
+  const section = document.getElementById('window-section');
+  const cloudsImg = document.getElementById('clouds-img');
+  const windowImg = document.getElementById('window-img');
+  if (!section || !cloudsImg || !windowImg) return;
+
+  // Clouds drift right to left continuously
+  gsap.to(cloudsImg, {
+    x: '-50%',
+    ease: 'none',
+    scrollTrigger: {
+      trigger: section,
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 1,
+    }
+  });
+
+  // Window zooms in as user scrolls — scale 15 fills screen for 16:9 ratio
+  gsap.to(windowImg, {
+    scale: 15,
+    ease: 'power2.in',
+    scrollTrigger: {
+      trigger: section,
+      start: 'top top',
+      end: '90% bottom',
+      scrub: 1.5,
+    }
+  });
+
+  // Background color transitions from sky blue to dark as window fills screen
+  gsap.to('#window-sticky', {
+    backgroundColor: '#0a0806',
+    ease: 'power1.in',
+    scrollTrigger: {
+      trigger: section,
+      start: '60% top',
+      end: '90% bottom',
+      scrub: 1,
+    }
   });
 })();
 
