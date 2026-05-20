@@ -11,7 +11,6 @@
     margin: 0;
     padding: 0;
     width: 100%;
-    overflow-x: hidden;
     background: #0a0806;
     font-family: 'Georgia', serif;
   }
@@ -69,7 +68,7 @@
 
   /* ---- DESTINATIONS SECTION ---- */
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #f0ede8; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+  body { background: #f0ede8; font-family: 'Inter', sans-serif; }
 
   .section-header {
     padding: 80px 60px 60px;
@@ -131,8 +130,8 @@
     align-items: center;
   }
   #clouds-img {
-    width: auto;
-    height: 200%;
+    width: 100%;
+    height: auto;
     min-height: 200%;
     object-fit: cover;
     will-change: transform;
@@ -386,31 +385,28 @@
   const windowImg = document.getElementById('window-img');
   if (!section || !cloudsImg || !windowImg) return;
 
-  // Clouds drift right to left continuously
   gsap.to(cloudsImg, {
-    x: '-50%',
+    y: '-40%',
     ease: 'none',
     scrollTrigger: {
       trigger: section,
       start: 'top top',
-      end: 'bottom bottom',
+      end: '50% bottom',
       scrub: 1,
     }
   });
 
-  // Window zooms in as user scrolls — scale 15 fills screen for 16:9 ratio
   gsap.to(windowImg, {
     scale: 15,
     ease: 'power2.in',
     scrollTrigger: {
       trigger: section,
-      start: 'top top',
+      start: '40% top',
       end: '90% bottom',
       scrub: 1.5,
     }
   });
 
-  // Background color transitions from sky blue to dark as window fills screen
   gsap.to('#window-sticky', {
     backgroundColor: '#0a0806',
     ease: 'power1.in',
