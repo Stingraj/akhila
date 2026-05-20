@@ -111,7 +111,11 @@
   #window-section {
     position: relative;
     height: 500vh;
-    background: #c8d8e8;
+    background: #0a0806;
+  }
+
+  footer {
+    opacity: 0;
   }
   #window-sticky {
     position: sticky;
@@ -383,10 +387,12 @@
   const section = document.getElementById('window-section');
   const cloudsImg = document.getElementById('clouds-img');
   const windowImg = document.getElementById('window-img');
+  const footer = document.querySelector('footer');
   if (!section || !cloudsImg || !windowImg) return;
 
+  // Clouds move 20% up and 20% left only
   gsap.to(cloudsImg, {
-    y: '-55%',
+    y: '-20%',
     x: '-20%',
     ease: 'none',
     scrollTrigger: {
@@ -397,24 +403,38 @@
     }
   });
 
+  // Window zooms in
   gsap.to(windowImg, {
-    scale: 15,
+    scale: 8,
     ease: 'power2.in',
     scrollTrigger: {
       trigger: section,
-      start: '40% top',
-      end: '90% bottom',
+      start: '30% top',
+      end: '95% bottom',
       scrub: 1.5,
     }
   });
 
+  // Background fades dark near end of zoom
   gsap.to('#window-sticky', {
     backgroundColor: '#0a0806',
     ease: 'power1.in',
     scrollTrigger: {
       trigger: section,
-      start: '60% top',
-      end: '90% bottom',
+      start: '75% top',
+      end: '95% bottom',
+      scrub: 1,
+    }
+  });
+
+  // Footer fades in as window zoom completes
+  gsap.to(footer, {
+    opacity: 1,
+    ease: 'power1.in',
+    scrollTrigger: {
+      trigger: section,
+      start: '85% top',
+      end: '100% bottom',
       scrub: 1,
     }
   });
