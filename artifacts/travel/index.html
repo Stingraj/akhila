@@ -300,6 +300,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
 <script>
+  gsap.registerPlugin(ScrollTrigger);
   /* ---------- CONFIG ---------- */
   let scrollReady = false;
   const frameCount = 123;
@@ -440,7 +441,6 @@
 </script>
 
 <script>
-gsap.registerPlugin(ScrollTrigger);
 (function initDestinations() {
   const TOTAL = 4;
   const wrapper = document.getElementById('dest-wrapper');
