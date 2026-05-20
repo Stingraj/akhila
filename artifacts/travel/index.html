@@ -530,13 +530,13 @@
 
   // Window zooms in
   gsap.to(windowImg, {
-    scale: 8,
+    scale: 10,
     ease: 'power2.in',
     scrollTrigger: {
       trigger: section,
-      start: '30% top',
-      end: '95% bottom',
-      scrub: 1.5,
+      start: 'top top',
+      end: '60% bottom',
+      scrub: 1.2,
     }
   });
 
@@ -546,8 +546,8 @@
     ease: 'power1.in',
     scrollTrigger: {
       trigger: section,
-      start: '75% top',
-      end: '95% bottom',
+      start: '40% top',
+      end: '60% bottom',
       scrub: 1,
     }
   });
@@ -560,8 +560,8 @@
       ease: 'power1.out',
       scrollTrigger: {
         trigger: section,
-        start: '65% top',
-        end: '85% bottom',
+        start: '55% top',
+        end: '75% bottom',
         scrub: 1,
       }
     }
