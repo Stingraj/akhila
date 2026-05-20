@@ -330,24 +330,31 @@
   function drawCover(img) {
     ctx.fillStyle = '#0a0806';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+
     if (!img || !img.complete || !img.naturalWidth) return;
+
     const cw = canvas.width;
     const ch = canvas.height;
-    const ir = img.naturalWidth / img.naturalHeight;
-    const cr = cw / ch;
-    let dw, dh;
-    if (ir > cr) {
-      dh = ch;
-      dw = ch * ir;
-    } else {
-      dw = cw;
-      dh = cw / ir;
-    }
-    const scale = Math.max(cw / dw, ch / dh);
-    dw *= scale;
-    dh *= scale;
+    const iw = img.naturalWidth;
+    const ih = img.naturalHeight;
+
+    // --- BỘ LỌC CẮT VIỀN ĐEN AI ---
+    // Mặc định cắt 12% viền đen trên và dưới. 
+    // Nếu vẫn còn thấy viền đen mỏng, bro đổi 0.12 thành 0.13 hoặc 0.14 nhé.
+    const blackBarRatio = 0.12; 
+
+    // Tính chiều cao phần ảnh thật
+    const realHeight = ih * (1 - (blackBarRatio * 2));
+
+    // Scale ảnh lấp đầy màn hình
+    const scale = Math.max(cw / iw, ch / realHeight);
+
+    const dw = iw * scale;
+    const dh = ih * scale;
+
     const dx = (cw - dw) / 2;
     const dy = (ch - dh) / 2;
+
     ctx.drawImage(img, dx, dy, dw, dh);
   }
 
