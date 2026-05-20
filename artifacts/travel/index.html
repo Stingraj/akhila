@@ -165,6 +165,28 @@
     text-transform: uppercase;
     margin: 0;
   }
+  .close-panel-btn {
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    z-index: 99;
+    opacity: 0;
+    pointer-events: none;
+    background: none;
+    border: 1px solid #1a1a1a;
+    color: #1a1a1a;
+    padding: 12px 24px;
+    font-family: inherit;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: background 0.3s;
+  }
+  .close-panel-btn:hover {
+    background: rgba(26, 26, 26, 0.08);
+  }
 
   .img-fill {
     position: absolute;
@@ -289,6 +311,7 @@
         <img src="/images/Moraine%20Lake%20Right.png" alt="Moraine Lake" style="object-fit:cover;width:100%;height:100%;position:absolute;inset:0;">
         <div class="right-overlay"></div>
       </div>
+      <button class="close-panel-btn" type="button">✕ Close</button>
       <div class="dest-num">01 / 04</div>
       <div class="prog" id="prog0"></div>
     </div>
@@ -303,6 +326,7 @@
         <img src="/images/Tokyo%20Right.png" alt="Tokyo" style="object-fit:cover;width:100%;height:100%;position:absolute;inset:0;">
         <div class="right-overlay"></div>
       </div>
+      <button class="close-panel-btn" type="button">✕ Close</button>
       <div class="dest-num">02 / 04</div>
       <div class="prog" id="prog1"></div>
     </div>
@@ -317,6 +341,7 @@
         <img src="/images/Amalfi%20Coast%20right.png" alt="Amalfi Coast" style="object-fit:cover;width:100%;height:100%;position:absolute;inset:0;">
         <div class="right-overlay"></div>
       </div>
+      <button class="close-panel-btn" type="button">✕ Close</button>
       <div class="dest-num">03 / 04</div>
       <div class="prog" id="prog2"></div>
     </div>
@@ -331,6 +356,7 @@
         <img src="/images/maldives%20right.png" alt="Maldives" style="object-fit:cover;width:100%;height:100%;position:absolute;inset:0;">
         <div class="right-overlay"></div>
       </div>
+      <button class="close-panel-btn" type="button">✕ Close</button>
       <div class="dest-num">04 / 04</div>
       <div class="prog" id="prog3"></div>
     </div>
@@ -567,31 +593,59 @@
 
 /* ---------- DEST PANEL CLICK TRANSITION ---------- */
 document.querySelectorAll('.dest-panel').forEach((panel) => {
-  panel.addEventListener('click', () => {
+  const overlay  = panel.querySelector('.right-overlay');
+  const leftImg  = panel.querySelector('.panel-left img');
+  const leftText = panel.querySelector('.left-detail-text');
+  const closeBtn = panel.querySelector('.close-panel-btn');
+
+  const lockScroll = () => {
+    if (window.lenis && typeof window.lenis.stop === 'function') window.lenis.stop();
+    document.body.style.overflow = 'hidden';
+  };
+  const unlockScroll = () => {
+    if (window.lenis && typeof window.lenis.start === 'function') window.lenis.start();
+    document.body.style.overflow = '';
+  };
+
+  // Build the timeline once, paused, then play/reverse on demand.
+  const tl = gsap.timeline({ paused: true });
+  tl.to(overlay,  { y: '0%',   duration: 1.0, ease: 'expo.inOut' }, 0.0)
+    .to(leftImg,  { scale: 0.5, borderRadius: '24px', duration: 0.8, ease: 'expo.inOut' }, 0.5)
+    .to(leftText, { opacity: 1, duration: 0.8, ease: 'expo.inOut' }, 0.5)
+    .to(overlay,  { y: '100%', duration: 0.5, ease: 'expo.inOut' }, 1.0)
+    .to(closeBtn, { opacity: 1, duration: 0.5, ease: 'expo.inOut' }, 1.0)
+    .set(closeBtn, { pointerEvents: 'auto' }, 1.0);
+
+  panel.addEventListener('click', (e) => {
+    // Ignore clicks coming from the close button or while open/animating.
+    if (e.target.closest('.close-panel-btn')) return;
+    if (panel.dataset.open === '1' || panel.dataset.animating === '1') return;
+
+    panel.dataset.animating = '1';
+    lockScroll();
+
+    tl.eventCallback('onComplete', () => {
+      panel.dataset.animating = '0';
+      panel.dataset.open = '1';
+    });
+    tl.eventCallback('onReverseComplete', null);
+    tl.play();
+  });
+
+  closeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
     if (panel.dataset.animating === '1') return;
     panel.dataset.animating = '1';
 
-    const overlay = panel.querySelector('.right-overlay');
-    const leftImg = panel.querySelector('.panel-left img');
-    const leftText = panel.querySelector('.left-detail-text');
+    // Disable pointer events immediately so the button can't be re-clicked.
+    closeBtn.style.pointerEvents = 'none';
 
-    if (window.lenis && typeof window.lenis.stop === 'function') {
-      window.lenis.stop();
-    }
-
-    const tl = gsap.timeline({
-      onComplete: () => {
-        panel.dataset.animating = '0';
-        if (window.lenis && typeof window.lenis.start === 'function') {
-          window.lenis.start();
-        }
-      },
+    tl.eventCallback('onReverseComplete', () => {
+      panel.dataset.animating = '0';
+      panel.dataset.open = '0';
+      unlockScroll();
     });
-
-    tl.to(overlay, { y: '0%', duration: 0.3, ease: 'power2.inOut' }, 0)
-      .to(leftImg, { scale: 0.45, borderRadius: '24px', duration: 0.2, ease: 'power2.inOut' }, 0.4)
-      .to(leftText, { opacity: 1, duration: 0.2, ease: 'power2.inOut' }, 0.4)
-      .to(overlay, { y: '100%', duration: 0.3, ease: 'power2.inOut' }, 0.7);
+    tl.reverse();
   });
 });
 </script>
