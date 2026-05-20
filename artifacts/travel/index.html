@@ -396,6 +396,53 @@
     color: #3b82f6;
     font-weight: 500;
   }
+
+  #window-hero-left {
+    position: absolute;
+    top: clamp(110px, 12.3vw, 236px);
+    left: clamp(40px, 4.69vw, 90px);
+    z-index: 20;
+    pointer-events: none;
+    max-width: clamp(280px, 28.125vw, 540px);
+  }
+  #window-hero-title {
+    font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+    font-size: clamp(36px, 3.75vw, 72px);
+    font-weight: 500;
+    line-height: 1.05;
+    color: #fff;
+    margin-bottom: clamp(16px, 1.875vw, 36px);
+  }
+  #window-hero-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(13px, 1.25vw, 24px);
+    font-weight: 400;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.7);
+  }
+  #window-hero-right {
+    position: absolute;
+    bottom: clamp(112px, 12.7vw, 244px);
+    right: clamp(40px, 4.69vw, 90px);
+    z-index: 20;
+    pointer-events: none;
+    text-align: right;
+  }
+  #window-hero-line1 {
+    font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+    font-size: clamp(48px, 5.208vw, 100px);
+    font-weight: 700;
+    line-height: 0.95;
+    color: #fff;
+  }
+  #window-hero-line2 {
+    font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+    font-size: clamp(48px, 5.208vw, 100px);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 0.95;
+    color: #fff;
+  }
 </style>
 </head>
 <body>
@@ -459,6 +506,15 @@
     </div>
     <div id="airplane-window">
       <img src="/images/Door.png" alt="" id="window-img">
+    </div>
+    <div id="window-hero-left">
+      <h1 id="window-hero-title">Your gateway to<br>the extraordinary</h1>
+      <p id="window-hero-desc">Every journey is crafted around your curiosity, time, and dreams — so you can focus on what truly matters, while we take care of everything else.</p>
+    </div>
+
+    <div id="window-hero-right">
+      <div id="window-hero-line1">We are</div>
+      <div id="window-hero-line2">destination</div>
     </div>
     <div id="cinematic-text">Your Next Escape Awaits</div>
   </div>
@@ -770,6 +826,21 @@
 
   // 5. Fade OUT the cinematic text before leaving the section
   tl.to(cineText, { opacity: 0, y: -40, ease: 'power1.in', duration: 1 }, 4.0);
+
+  const windowHeroEls = document.querySelectorAll('#window-hero-left, #window-hero-right');
+  if (windowHeroEls.length) {
+    gsap.to(windowHeroEls, {
+      y: -80,
+      opacity: 0,
+      ease: 'power2.in',
+      scrollTrigger: {
+        trigger: section,
+        start: 'top top',
+        end: () => '+=' + (window.innerHeight * 0.8),
+        scrub: 0.8,
+      }
+    });
+  }
 })();
 
 </script>
