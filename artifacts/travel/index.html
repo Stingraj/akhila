@@ -651,6 +651,23 @@
       onUpdate: render,
     });
 
+    const heroContent = document.getElementById('hero-content');
+    const heroCard = document.getElementById('hero-card');
+
+    if (heroContent && heroCard) {
+      gsap.to([heroContent, heroCard], {
+        y: -80,
+        opacity: 0,
+        ease: 'power2.in',
+        scrollTrigger: {
+          trigger: wrapper,
+          start: 'top top',
+          end: () => '+=' + (window.innerHeight * 7 * 0.32),
+          scrub: 0.8,
+        }
+      });
+    }
+
     /* Resize handling */
     const ro = new ResizeObserver(() => {
       resizeCanvas();
