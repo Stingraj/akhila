@@ -205,11 +205,13 @@
   #clouds-img {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
+    width: 110%;
+    height: 110%;
+    left: -5%;
+    top: -5%;
     object-fit: cover;
     will-change: transform;
-    transform-origin: center bottom;
+    transform-origin: center center;
   }
   #airplane-window {
     position: absolute;
@@ -512,13 +514,13 @@
   const section = document.getElementById('window-section');
   const cloudsImg = document.getElementById('clouds-img');
   const windowImg = document.getElementById('window-img');
-  const footer = document.querySelector('footer');
+  const destinations = document.getElementById('destinations-section');
   if (!section || !cloudsImg || !windowImg) return;
 
-  // Clouds move 20% up and 20% left only
+  // Clouds move 20% left and 20% up
   gsap.to(cloudsImg, {
-    y: '-5%',
-    x: '-5%',
+    y: '-20%',
+    x: '-20%',
     ease: 'none',
     scrollTrigger: {
       trigger: section,
@@ -528,7 +530,7 @@
     }
   });
 
-  // Window zooms in
+  // Window zooms immediately from start
   gsap.to(windowImg, {
     scale: 10,
     ease: 'power2.in',
@@ -540,19 +542,33 @@
     }
   });
 
-  // Background fades dark near end of zoom
-  gsap.to('#window-sticky', {
-    backgroundColor: '#0a0806',
+  // Clouds fade out as zoom completes
+  gsap.to(cloudsImg, {
+    opacity: 0,
     ease: 'power1.in',
     scrollTrigger: {
       trigger: section,
       start: '40% top',
-      end: '60% bottom',
+      end: '65% bottom',
       scrub: 1,
     }
   });
 
-  // Destinations fade in as window zoom completes
+  // Window also fades out
+  gsap.to(windowImg, {
+    opacity: 0,
+    ease: 'power1.in',
+    scrollTrigger: {
+      trigger: section,
+      start: '50% top',
+      end: '65% bottom',
+      scrub: 1,
+    }
+  });
+
+  // Background stays dark #0a0806 — no color animation needed
+
+  // Destinations fade in over the dark background
   gsap.fromTo('#destinations-section',
     { opacity: 0 },
     {
@@ -560,8 +576,8 @@
       ease: 'power1.out',
       scrollTrigger: {
         trigger: section,
-        start: '55% top',
-        end: '75% bottom',
+        start: '60% top',
+        end: '80% bottom',
         scrub: 1,
       }
     }
