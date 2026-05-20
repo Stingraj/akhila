@@ -286,6 +286,26 @@
     color: #fff;
     text-align: left;
   }
+
+  .room-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .p0 .room-overlay { background: #2d5a6e; }
+  .p1 .room-overlay { background: #1a1f3a; }
+  .p2 .room-overlay { background: #c8622a; }
+  .p3 .room-overlay { background: #1a3d4f; }
+
+  .dest-panel.detail-open .detail-overlay {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 0.3s ease;
+  }
+  .panel-left img { transform-origin: 50% 50%; }
 </style>
 </head>
 <body>
@@ -566,12 +586,19 @@
     { country: 'Maldives · Indian Ocean', price: 'From $4,200', tagline: 'Infinite blue, absolute stillness',         title: 'Maldives',      accent: '#1a3d4f' },
   ];
 
+  const openStates = panels.map(() => false);
+
   panels.forEach((panel, i) => {
     const data = detailData[i];
     const left = panel.querySelector('.panel-left');
-    if (!left || !data) return;
+    const right = panel.querySelector('.panel-right');
+    if (!left || !right || !data) return;
     const baseImg = left.querySelector('img');
     const imgSrc = baseImg ? baseImg.getAttribute('src') : '';
+
+    const roomOverlay = document.createElement('div');
+    roomOverlay.className = 'room-overlay';
+    right.appendChild(roomOverlay);
 
     const overlay = document.createElement('div');
     overlay.className = 'detail-overlay';
@@ -586,45 +613,72 @@
     left.appendChild(overlay);
 
     const closeBtn = overlay.querySelector('.detail-close');
-    const frame    = overlay.querySelector('.detail-frame');
-    const textEls  = [
-      overlay.querySelector('.detail-country'),
-      overlay.querySelector('.detail-price'),
-      overlay.querySelector('.detail-tagline'),
-      overlay.querySelector('.detail-title'),
-    ];
 
-    gsap.set(frame,   { scale: 0.85, autoAlpha: 0 });
-    gsap.set(textEls, { y: 14, autoAlpha: 0 });
-
-    let open = false;
     left.addEventListener('click', () => {
-      if (open) return;
-      open = true;
-      overlay.style.pointerEvents = 'auto';
-      document.body.style.overflow = 'hidden';
-      if (lenis) lenis.stop();
-      gsap.timeline({ defaults: { ease: 'power2.out', duration: 0.6 } })
-        .to(overlay,  { autoAlpha: 1, duration: 0.4 })
-        .to(frame,    { scale: 1, autoAlpha: 1 }, '<0.05')
-        .to(textEls,  { y: 0, autoAlpha: 1, stagger: 0.08 }, '<0.1');
+      if (openStates[i]) return;
+      openDetail(i);
     });
-
     closeBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      if (!open) return;
-      open = false;
-      document.body.style.overflow = '';
-      if (lenis) lenis.start();
-      gsap.timeline({
-        defaults: { ease: 'power2.in', duration: 0.4 },
-        onComplete: () => { overlay.style.pointerEvents = 'none'; },
-      })
-        .to(textEls,  { y: 14, autoAlpha: 0, stagger: 0.04 })
-        .to(frame,    { scale: 0.85, autoAlpha: 0 }, '<')
-        .to(overlay,  { autoAlpha: 0 }, '<0.1');
+      if (!openStates[i]) return;
+      closeDetail(i);
     });
   });
+
+  function openDetail(panelIndex) {
+    const panel = panels[panelIndex];
+    const overlay = panel.querySelector('.room-overlay');
+    const leftImg = panel.querySelector('.panel-left img');
+    openStates[panelIndex] = true;
+
+    const tl = gsap.timeline();
+
+    tl.to(overlay, {
+      opacity: 1,
+      duration: 0.3,
+      ease: 'power2.out',
+      pointerEvents: 'none',
+    })
+
+    .call(() => {
+      panel.classList.add('detail-open');
+    }, null, 0.4)
+
+    .to(leftImg, {
+      scale: 0.55,
+      duration: 0.2,
+      ease: 'power2.inOut',
+    }, 0.4)
+
+    .to(overlay, {
+      opacity: 0,
+      duration: 0.3,
+      ease: 'power2.in',
+    }, 0.7)
+
+    .call(() => {
+      document.body.style.overflow = 'hidden';
+      if (lenis) lenis.stop();
+    }, null, 1.0);
+  }
+
+  function closeDetail(panelIndex) {
+    const panel = panels[panelIndex];
+    const overlay = panel.querySelector('.room-overlay');
+    const leftImg = panel.querySelector('.panel-left img');
+    openStates[panelIndex] = false;
+
+    const tl = gsap.timeline();
+
+    tl.to(overlay, { opacity: 1, duration: 0.3, ease: 'power2.out' })
+    .to(leftImg, { scale: 1, duration: 0.2, ease: 'power2.inOut' }, 0.3)
+    .call(() => { panel.classList.remove('detail-open'); }, null, 0.4)
+    .to(overlay, { opacity: 0, duration: 0.3, ease: 'power2.in' }, 0.5)
+    .call(() => {
+      document.body.style.overflow = '';
+      if (lenis) lenis.start();
+    }, null, 0.8);
+  }
 
 })();
 
