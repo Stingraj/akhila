@@ -209,159 +209,6 @@
     justify-content: space-between;
   }
   footer p { font-size:12px; color:#aaa; letter-spacing:0.15em; text-transform:uppercase; }
-
-  /* ---- Destination detail overlay ---- */
-  .panel-left { cursor: pointer; }
-  .detail-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 30;
-    pointer-events: none;
-    visibility: hidden;
-    opacity: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto 1fr auto auto;
-    padding: 48px 56px 56px;
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-  }
-  .detail-close {
-    position: absolute;
-    top: 24px; right: 24px;
-    width: 38px; height: 38px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.10);
-    border: 1px solid rgba(255,255,255,0.30);
-    color: #fff;
-    font-size: 14px;
-    line-height: 1;
-    cursor: pointer;
-    z-index: 5;
-    display: flex; align-items: center; justify-content: center;
-    transition: background 0.2s;
-    font-family: inherit;
-  }
-  .detail-close:hover { background: rgba(255,255,255,0.22); }
-  .detail-country {
-    grid-column: 1; grid-row: 1;
-    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
-    color: rgba(255,255,255,0.6);
-  }
-  .detail-price {
-    grid-column: 2; grid-row: 1;
-    text-align: right;
-    padding-right: 56px;
-    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
-    color: rgba(255,255,255,0.6);
-  }
-  .detail-frame {
-    grid-column: 1 / span 2; grid-row: 2;
-    justify-self: center; align-self: center;
-    width: min(60%, 320px);
-    aspect-ratio: 3 / 4;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.25);
-    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.45);
-  }
-  .detail-frame img {
-    width: 100%; height: 100%; object-fit: cover; display: block;
-  }
-  .detail-tagline {
-    grid-column: 1 / span 2; grid-row: 3;
-    text-align: center;
-    font-style: italic;
-    font-size: 15px;
-    color: rgba(255,255,255,0.78);
-    margin: 22px 0 0;
-    letter-spacing: 0.02em;
-  }
-  .detail-title {
-    grid-column: 1 / span 2; grid-row: 4;
-    font-family: 'Playfair Display', serif;
-    font-weight: 600;
-    font-size: clamp(40px, 5.2vw, 68px);
-    line-height: 1;
-    margin: 24px 0 0;
-    color: #fff;
-    text-align: left;
-  }
-
-  .room-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 5;
-    opacity: 0;
-    pointer-events: none;
-  }
-  .p0 .room-overlay { background: #2d5a6e; }
-  .p1 .room-overlay { background: #1a1f3a; }
-  .p2 .room-overlay { background: #c8622a; }
-  .p3 .room-overlay { background: #1a3d4f; }
-
-  .dest-panel.detail-open .detail-overlay {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    transition: opacity 0.3s ease;
-  }
-  .panel-left img { transform-origin: 50% 50%; }
-
-  .detail-hscroll {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    display: flex;
-    align-items: flex-end;
-    padding-bottom: 56px;
-    scrollbar-width: none;
-    pointer-events: auto;
-    z-index: 2;
-  }
-  .detail-hscroll::-webkit-scrollbar { display: none; }
-  .detail-hscroll-inner {
-    display: flex;
-    gap: 24px;
-    padding: 0 56px;
-    align-items: flex-end;
-    min-width: max-content;
-  }
-  .detail-info-block {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    min-width: 280px;
-    padding-bottom: 8px;
-  }
-  .detail-info-label {
-    font-size: 10px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.4);
-  }
-  .detail-info-value {
-    font-size: 15px;
-    color: rgba(255,255,255,0.9);
-    font-weight: 400;
-    line-height: 1.5;
-  }
-  .detail-activity-img {
-    width: 200px;
-    height: 260px;
-    object-fit: cover;
-    flex-shrink: 0;
-    opacity: 0.85;
-  }
-  .detail-divider {
-    width: 1px;
-    height: 120px;
-    background: rgba(255,255,255,0.15);
-    align-self: flex-end;
-    margin-bottom: 8px;
-    flex-shrink: 0;
-  }
 </style>
 </head>
 <body>
@@ -456,7 +303,6 @@
   gsap.registerPlugin(ScrollTrigger);
   /* ---------- CONFIG ---------- */
   let scrollReady = false;
-  let lenis;
   const frameCount = 123;
   const currentFrame = (index) =>
     `/frames/ezgif-frame-${(index + 1).toString().padStart(3, "0")}.jpg`;
@@ -541,7 +387,7 @@
 
   function initScroll() {
     /* Lenis smooth scroll */
-    lenis = new Lenis({
+    const lenis = new Lenis({
       duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
@@ -626,132 +472,13 @@
     scrub: 1.5,
     pin: '#dest-stage',
     pinSpacing: false,
+    snap: {
+      snapTo: 1 / 3,
+      duration: { min: 0.3, max: 0.8 },
+      delay: 0.1,
+      ease: 'power2.inOut',
+    },
   });
-
-  /* ---- Destination detail overlays ---- */
-  const detailData = [
-    {
-      country: 'Canada · Alberta', price: 'From $1,800',
-      tagline: 'Raw wilderness, crystalline waters', title: 'Moraine Lake', accent: '#2d5a6e',
-      duration: '7 nights', bestTime: 'June – September', activities: 'Canoeing · Hiking · Wildlife Spotting',
-      activityImgs: []
-    },
-    {
-      country: 'Japan · Kantō', price: 'From $2,100',
-      tagline: 'Ancient calm meets electric energy', title: 'Tokyo', accent: '#1a1f3a',
-      duration: '8 nights', bestTime: 'March – May · Oct – Nov', activities: 'Temple Walks · Street Food · Ryokan Stay',
-      activityImgs: []
-    },
-    {
-      country: 'Italy · Campania', price: 'From $2,800',
-      tagline: 'Cliffside beauty above the Mediterranean', title: 'Amalfi Coast', accent: '#c8622a',
-      duration: '6 nights', bestTime: 'May – October', activities: 'Boat Tour · Limoncello Trail · Cliff Dining',
-      activityImgs: []
-    },
-    {
-      country: 'Maldives · Indian Ocean', price: 'From $4,200',
-      tagline: 'Infinite blue, absolute stillness', title: 'Maldives', accent: '#1a3d4f',
-      duration: '9 nights', bestTime: 'November – April', activities: 'Snorkeling · Sunset Cruise · Overwater Villa',
-      activityImgs: []
-    },
-  ];
-
-  const openStates = panels.map(() => false);
-
-  panels.forEach((panel, i) => {
-    const data = detailData[i];
-    const left = panel.querySelector('.panel-left');
-    const right = panel.querySelector('.panel-right');
-    if (!left || !right || !data) return;
-    const baseImg = left.querySelector('img');
-    const imgSrc = baseImg ? baseImg.getAttribute('src') : '';
-
-    const roomOverlay = document.createElement('div');
-    roomOverlay.className = 'room-overlay';
-    right.appendChild(roomOverlay);
-
-    const overlay = document.createElement('div');
-    overlay.className = 'detail-overlay';
-    overlay.style.background = data.accent;
-    overlay.innerHTML =
-      '<button class="detail-close" type="button" aria-label="Close">✕</button>' +
-      '<span class="detail-country">' + data.country + '</span>' +
-      '<span class="detail-price">' + data.price + '</span>' +
-      '<div class="detail-frame"><img src="' + imgSrc + '" alt=""></div>' +
-      '<p class="detail-tagline">' + data.tagline + '</p>' +
-      '<h2 class="detail-title">' + data.title + '</h2>' +
-      '<div class="detail-hscroll"><div class="detail-hscroll-inner">' +
-        '<div class="detail-info-block">' +
-          '<span class="detail-info-label">Duration</span>' +
-          '<span class="detail-info-value">' + data.duration + '</span>' +
-        '</div>' +
-        '<div class="detail-divider"></div>' +
-        '<div class="detail-info-block">' +
-          '<span class="detail-info-label">Best Time to Visit</span>' +
-          '<span class="detail-info-value">' + data.bestTime + '</span>' +
-        '</div>' +
-        '<div class="detail-divider"></div>' +
-        '<div class="detail-info-block">' +
-          '<span class="detail-info-label">Activities</span>' +
-          '<span class="detail-info-value">' + data.activities + '</span>' +
-        '</div>' +
-      '</div></div>';
-    left.appendChild(overlay);
-
-    const closeBtn = overlay.querySelector('.detail-close');
-
-    left.addEventListener('click', () => {
-      if (openStates[i]) return;
-      openDetail(i);
-    });
-    closeBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (!openStates[i]) return;
-      closeDetail(i);
-    });
-  });
-
-  function openDetail(panelIndex) {
-    const panel = panels[panelIndex];
-    const roomOverlay = panel.querySelector('.room-overlay');
-    const leftImg = panel.querySelector('.panel-left > img');
-    openStates[panelIndex] = true;
-
-    const tl = gsap.timeline();
-    tl.to(roomOverlay, { opacity: 1, duration: 0.3, ease: 'power2.out' })
-      .call(() => { panel.classList.add('detail-open'); }, null, 0.4)
-      .to(leftImg, { scale: 0.55, duration: 0.2, ease: 'power2.inOut' }, 0.4)
-      .to(roomOverlay, { opacity: 0, duration: 0.3, ease: 'power2.in' }, 0.7)
-      .call(() => {
-        const scrollY = window.scrollY;
-        document.body.style.position = 'fixed';
-        document.body.style.top = `-${scrollY}px`;
-        document.body.style.width = '100%';
-        document.body.dataset.scrollY = scrollY;
-        if (lenis) lenis.stop();
-      }, null, 1.0);
-  }
-
-  function closeDetail(panelIndex) {
-    const panel = panels[panelIndex];
-    const roomOverlay = panel.querySelector('.room-overlay');
-    const leftImg = panel.querySelector('.panel-left > img');
-    openStates[panelIndex] = false;
-
-    const tl = gsap.timeline();
-    tl.to(roomOverlay, { opacity: 1, duration: 0.3, ease: 'power2.out' })
-      .to(leftImg, { scale: 1, duration: 0.2, ease: 'power2.inOut' }, 0.3)
-      .call(() => { panel.classList.remove('detail-open'); }, null, 0.4)
-      .to(roomOverlay, { opacity: 0, duration: 0.3, ease: 'power2.in' }, 0.5)
-      .call(() => {
-        const scrollY = parseInt(document.body.dataset.scrollY || '0');
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.width = '';
-        window.scrollTo(0, scrollY);
-        if (lenis) lenis.start();
-      }, null, 0.8);
-  }
 
 })();
 
