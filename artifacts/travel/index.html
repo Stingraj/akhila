@@ -309,6 +309,7 @@
     top: clamp(120px, 13.5vw, 260px);
     left: clamp(40px, 4.7vw, 90px);
     right: clamp(40px, 4.7vw, 90px);
+    bottom: 0;
     z-index: 10;
     pointer-events: none;
   }
@@ -328,7 +329,9 @@
     line-height: 1.5;
     color: #1a2a4a;
     max-width: clamp(280px, 25vw, 480px);
-    margin-top: clamp(320px, 28vw, 540px);
+    position: absolute;
+    bottom: clamp(32px, 5vw, 96px);
+    left: 0;
   }
   #hero-card {
     position: absolute;
