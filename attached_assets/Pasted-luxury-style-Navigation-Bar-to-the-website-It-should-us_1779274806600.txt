@@ -1,0 +1,104 @@
+luxury-style Navigation Bar to the website. It should use mix-blend-mode: difference to adapt to the dark/light cinematic backgrounds, and it should hide when scrolling down and reveal when scrolling up. Please update the index.html with these exact instructions:
+
+1. HTML Update:
+Add this <nav> element right after the opening <body> tag:
+
+HTML
+<nav id="main-nav">
+  <div class="nav-logo">TRAVEL NEXT LEVEL</div>
+  <div class="nav-links">
+    <a href="#">Destinations</a>
+    <a href="#">Journeys</a>
+    <a href="#">Journal</a>
+  </div>
+  <div class="nav-cta">
+    <a href="#">Book Now</a>
+  </div>
+</nav>
+2. CSS Updates (in the <style> tag):
+Add the following styles for the navbar:
+
+CSS
+#main-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 40px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  color: #fff;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#main-nav.hidden {
+  transform: translateY(-100%);
+}
+
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+}
+
+.nav-links a, .nav-cta a {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  background: #fff;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+3. JS Update (Smart Scroll Logic):
+Add this simple logic at the end of the script tag to handle the hide/show functionality using the existing Lenis instance. Put this inside the existing setup:
+
+JavaScript
+// Add this near the end of your script, after initializing Lenis
+(function initNavbar() {
+  const nav = document.getElementById('main-nav');
+  if (!nav) return;
+  
+  let lastScrollY = 0;
+  
+  lenis.on('scroll', (e) => {
+    const currentScrollY = e.animatedScroll;
+    
+    if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      // Scrolling down -> hide navbar
+      nav.classList.add('hidden');
+    } else {
+      // Scrolling up -> show navbar
+      nav.classList.remove('hidden');
+    }
+    lastScrollY = currentScrollY;
+  });
+})();
+STRICT RULE: Do not break or modify any existing GSAP timelines, ScrollTriggers, or the cinematic transitions we just built. Only insert the navbar.
