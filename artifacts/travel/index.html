@@ -335,20 +335,21 @@
     const ch = canvas.height;
     const ir = img.naturalWidth / img.naturalHeight;
     const cr = cw / ch;
-    let dw, dh, dx, dy;
+    let dw, dh;
     if (ir > cr) {
-      // image wider than canvas → fit by height, crop sides
       dh = ch;
       dw = ch * ir;
-      dx = (cw - dw) / 2;
-      dy = 0;
     } else {
-      // image taller than canvas → fit by width, crop top/bottom
       dw = cw;
       dh = cw / ir;
-      dx = 0;
-      dy = (ch - dh) / 2;
     }
+    // For viewports below 1920px wide, scale up to guarantee full coverage
+    const baseScale = Math.max(cw / dw, ch / dh);
+    const extraScale = cw < 1920 * dpr ? Math.max(1, 1920 / (cw / dpr)) * baseScale : baseScale;
+    dw = dw * extraScale;
+    dh = dh * extraScale;
+    const dx = (cw - dw) / 2;
+    const dy = (ch - dh) / 2;
     ctx.drawImage(img, dx, dy, dw, dh);
   }
 
