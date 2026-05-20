@@ -131,11 +131,12 @@
     align-items: center;
   }
   #clouds-img {
-    height: 100%;
     width: auto;
-    min-width: 200%;
+    height: 200%;
+    min-height: 200%;
     object-fit: cover;
     will-change: transform;
+    transform-origin: center bottom;
   }
   #airplane-window {
     position: absolute;
@@ -185,7 +186,7 @@
 <div id="window-section">
   <div id="window-sticky">
     <div id="clouds-track">
-      <img src="/images/clouds.png" alt="" id="clouds-img">
+      <img src="/images/Cloud 2.png" alt="" id="clouds-img">
     </div>
     <div id="airplane-window">
       <img src="/images/Door.png" alt="" id="window-img">
