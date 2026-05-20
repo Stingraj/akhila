@@ -1,0 +1,81 @@
+fix the black border issue on large screens (like 27-inch monitors) during the window and clouds parallax animation. Update the index.html file with the following strict changes:
+
+1. CSS Update (in the <style> tag):
+Replace the existing #clouds-img CSS with this to provide enough extra image area for the parallax effect without revealing the edges:
+
+CSS
+#clouds-img {
+  position: absolute;
+  inset: 0;
+  width: 130vw;
+  height: 130vh;
+  left: -15vw;
+  top: -15vh;
+  object-fit: cover;
+  will-change: transform;
+  transform-origin: center center;
+}
+2. JavaScript GSAP Update:
+Replace the entire initWindowSection() function with the following updated logic. This increases the zoom scale, shortens the panning distance, and synchronizes the fade-outs so they happen before any edges can be seen:
+
+JavaScript
+(function initWindowSection() {
+  const section = document.getElementById('window-section');
+  const cloudsImg = document.getElementById('clouds-img');
+  const windowImg = document.getElementById('window-img');
+  const destinations = document.getElementById('destinations-section');
+  if (!section || !cloudsImg || !windowImg) return;
+
+  // Clouds move slightly less to stay within the safe bounds
+  gsap.to(cloudsImg, {
+    y: '-10%',
+    x: '-10%',
+    ease: 'none',
+    scrollTrigger: {
+      trigger: section,
+      start: 'top top',
+      end: '60% top',
+      scrub: 1,
+    }
+  });
+
+  // Window zooms much larger to clear the screen faster
+  gsap.to(windowImg, {
+    scale: 25,
+    ease: 'power2.in',
+    scrollTrigger: {
+      trigger: section,
+      start: 'top top',
+      end: '50% top',
+      scrub: 1.2,
+    }
+  });
+
+  // Both window and clouds fade out smoothly and quickly
+  gsap.to([cloudsImg, windowImg], {
+    opacity: 0,
+    ease: 'power2.inOut',
+    scrollTrigger: {
+      trigger: section,
+      start: '40% top',
+      end: '55% top',
+      scrub: 1,
+    }
+  });
+
+  // Destinations section fades in to take over
+  gsap.fromTo('#destinations-section',
+    { opacity: 0 },
+    {
+      opacity: 1,
+      ease: 'power1.out',
+      scrollTrigger: {
+        trigger: section,
+        start: '50% top',
+        end: '70% top',
+        scrub: 1,
+      }
+    }
+  );
+})();
+STRICT RULE: Only update the #clouds-img CSS and the initWindowSection() function. Do not modify any other CSS or JavaScript in the file."

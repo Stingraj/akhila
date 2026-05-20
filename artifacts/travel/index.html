@@ -205,10 +205,10 @@
   #clouds-img {
     position: absolute;
     inset: 0;
-    width: 110%;
-    height: 110%;
-    left: -5%;
-    top: -5%;
+    width: 130vw;
+    height: 130vh;
+    left: -15vw;
+    top: -15vh;
     object-fit: cover;
     will-change: transform;
     transform-origin: center center;
@@ -517,58 +517,44 @@
   const destinations = document.getElementById('destinations-section');
   if (!section || !cloudsImg || !windowImg) return;
 
-  // Clouds move 20% left and 20% up
+  // Clouds move slightly less to stay within the safe bounds
   gsap.to(cloudsImg, {
-    y: '-20%',
-    x: '-20%',
+    y: '-10%',
+    x: '-10%',
     ease: 'none',
     scrollTrigger: {
       trigger: section,
       start: 'top top',
-      end: 'bottom bottom',
+      end: '60% top',
       scrub: 1,
     }
   });
 
-  // Window zooms immediately from start
+  // Window zooms much larger to clear the screen faster
   gsap.to(windowImg, {
-    scale: 10,
+    scale: 25,
     ease: 'power2.in',
     scrollTrigger: {
       trigger: section,
       start: 'top top',
-      end: '60% bottom',
+      end: '50% top',
       scrub: 1.2,
     }
   });
 
-  // Clouds fade out as zoom completes
-  gsap.to(cloudsImg, {
+  // Both window and clouds fade out smoothly and quickly
+  gsap.to([cloudsImg, windowImg], {
     opacity: 0,
-    ease: 'power1.in',
+    ease: 'power2.inOut',
     scrollTrigger: {
       trigger: section,
       start: '40% top',
-      end: '65% bottom',
+      end: '55% top',
       scrub: 1,
     }
   });
 
-  // Window also fades out
-  gsap.to(windowImg, {
-    opacity: 0,
-    ease: 'power1.in',
-    scrollTrigger: {
-      trigger: section,
-      start: '50% top',
-      end: '65% bottom',
-      scrub: 1,
-    }
-  });
-
-  // Background stays dark #0a0806 — no color animation needed
-
-  // Destinations fade in over the dark background
+  // Destinations section fades in to take over
   gsap.fromTo('#destinations-section',
     { opacity: 0 },
     {
@@ -576,8 +562,8 @@
       ease: 'power1.out',
       scrollTrigger: {
         trigger: section,
-        start: '60% top',
-        end: '80% bottom',
+        start: '50% top',
+        end: '70% top',
         scrub: 1,
       }
     }
