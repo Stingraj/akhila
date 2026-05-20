@@ -127,6 +127,45 @@
     will-change: clip-path;
   }
 
+  .panel-left {
+    background: #f0ede8;
+  }
+  .panel-left img {
+    z-index: 2;
+    transform-origin: center;
+    border-radius: 0px;
+  }
+  .right-overlay {
+    position: absolute;
+    inset: 0;
+    background: #1a1a1a;
+    z-index: 5;
+    transform: translateY(-100%);
+  }
+  .left-detail-text {
+    position: absolute;
+    inset: 0;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 1;
+    opacity: 0;
+    color: #1a1a1a;
+  }
+  .left-detail-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 400;
+    margin: 0 0 16px 0;
+  }
+  .left-detail-text p {
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
   .img-fill {
     position: absolute;
     inset: 0;
@@ -243,10 +282,12 @@
     <!-- Panel 0: Moraine Lake — visible from start -->
     <div class="dest-panel p0" id="p0">
       <div class="panel-left">
+        <div class="left-detail-text"><h2>Journey Details</h2><p>Architecture, Landscape, Experience</p></div>
         <img src="/images/Moraine%20Lake%20Left.png" alt="Moraine Lake" style="object-fit:cover;width:100%;height:100%;position:absolute;inset:0;">
       </div>
       <div class="panel-right">
         <img src="/images/Moraine%20Lake%20Right.png" alt="Moraine Lake" style="object-fit:cover;width:100%;height:100%;position:absolute;inset:0;">
+        <div class="right-overlay"></div>
       </div>
       <div class="dest-num">01 / 04</div>
       <div class="prog" id="prog0"></div>
@@ -255,10 +296,12 @@
     <!-- Panel 1: Tokyo -->
     <div class="dest-panel p1" id="p1">
       <div class="panel-left" id="pl1">
+        <div class="left-detail-text"><h2>Journey Details</h2><p>Architecture, Landscape, Experience</p></div>
         <img src="/images/Tokyo%20left.png" alt="Tokyo" style="object-fit:cover;width:100%;height:100%;position:absolute;inset:0;">
       </div>
       <div class="panel-right" id="pr1">
         <img src="/images/Tokyo%20Right.png" alt="Tokyo" style="object-fit:cover;width:100%;height:100%;position:absolute;inset:0;">
+        <div class="right-overlay"></div>
       </div>
       <div class="dest-num">02 / 04</div>
       <div class="prog" id="prog1"></div>
@@ -267,10 +310,12 @@
     <!-- Panel 2: Amalfi Coast -->
     <div class="dest-panel p2" id="p2">
       <div class="panel-left" id="pl2">
+        <div class="left-detail-text"><h2>Journey Details</h2><p>Architecture, Landscape, Experience</p></div>
         <img src="/images/Amalfi%20Coast%20left.png" alt="Amalfi Coast" style="object-fit:cover;width:100%;height:100%;position:absolute;inset:0;">
       </div>
       <div class="panel-right" id="pr2">
         <img src="/images/Amalfi%20Coast%20right.png" alt="Amalfi Coast" style="object-fit:cover;width:100%;height:100%;position:absolute;inset:0;">
+        <div class="right-overlay"></div>
       </div>
       <div class="dest-num">03 / 04</div>
       <div class="prog" id="prog2"></div>
@@ -279,10 +324,12 @@
     <!-- Panel 3: Maldives -->
     <div class="dest-panel p3" id="p3">
       <div class="panel-left" id="pl3">
+        <div class="left-detail-text"><h2>Journey Details</h2><p>Architecture, Landscape, Experience</p></div>
         <img src="/images/maldives%20left.png" alt="Maldives" style="object-fit:cover;width:100%;height:100%;position:absolute;inset:0;">
       </div>
       <div class="panel-right" id="pr3">
         <img src="/images/maldives%20right.png" alt="Maldives" style="object-fit:cover;width:100%;height:100%;position:absolute;inset:0;">
+        <div class="right-overlay"></div>
       </div>
       <div class="dest-num">04 / 04</div>
       <div class="prog" id="prog3"></div>
@@ -393,6 +440,7 @@
       smoothWheel: true,
       smoothTouch: false,
     });
+    window.lenis = lenis;
     gsap.ticker.add((time) => lenis.raf(time * 1000));
     gsap.ticker.lagSmoothing(0);
     lenis.on('scroll', ScrollTrigger.update);
@@ -517,6 +565,35 @@
   });
 })();
 
+/* ---------- DEST PANEL CLICK TRANSITION ---------- */
+document.querySelectorAll('.dest-panel').forEach((panel) => {
+  panel.addEventListener('click', () => {
+    if (panel.dataset.animating === '1') return;
+    panel.dataset.animating = '1';
+
+    const overlay = panel.querySelector('.right-overlay');
+    const leftImg = panel.querySelector('.panel-left img');
+    const leftText = panel.querySelector('.left-detail-text');
+
+    if (window.lenis && typeof window.lenis.stop === 'function') {
+      window.lenis.stop();
+    }
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        panel.dataset.animating = '0';
+        if (window.lenis && typeof window.lenis.start === 'function') {
+          window.lenis.start();
+        }
+      },
+    });
+
+    tl.to(overlay, { y: '0%', duration: 0.3, ease: 'power2.inOut' }, 0)
+      .to(leftImg, { scale: 0.45, borderRadius: '24px', duration: 0.2, ease: 'power2.inOut' }, 0.4)
+      .to(leftText, { opacity: 1, duration: 0.2, ease: 'power2.inOut' }, 0.4)
+      .to(overlay, { y: '100%', duration: 0.3, ease: 'power2.inOut' }, 0.7);
+  });
+});
 </script>
 </body>
 </html>
