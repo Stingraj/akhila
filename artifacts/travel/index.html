@@ -450,6 +450,22 @@
     line-height: 0.95;
     color: #fff;
   }
+
+  #exploration-section {
+    cursor: none;
+  }
+  .trail-img {
+    position: fixed;
+    width: clamp(120px, 10vw, 200px);
+    height: clamp(80px, 7vw, 140px);
+    object-fit: cover;
+    pointer-events: none;
+    z-index: 9000;
+    opacity: 0;
+    transform: scale(1);
+    border-radius: 4px;
+    will-change: transform, opacity;
+  }
 </style>
 </head>
 <body>
@@ -848,6 +864,70 @@
       }
     });
   }
+})();
+
+(function initImageTrail() {
+  const section = document.getElementById('exploration-section');
+  if (!section) return;
+
+  const trailImages = [
+    '/images/Moraine Lake.png',
+    '/images/Tokyo.png',
+    '/images/Amalfi Coast.png',
+    '/images/Maldives.png',
+    '/images/Moraine Lake Left.png',
+    '/images/Tokyo left.png',
+    '/images/Amalfi Coast left.png',
+    '/images/maldives left.png',
+  ];
+
+  let lastX = 0;
+  let lastY = 0;
+  let imgIndex = 0;
+  const threshold = 80;
+
+  section.addEventListener('mousemove', (e) => {
+    const dx = e.clientX - lastX;
+    const dy = e.clientY - lastY;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    if (dist < threshold) return;
+
+    lastX = e.clientX;
+    lastY = e.clientY;
+
+    const img = document.createElement('img');
+    img.className = 'trail-img';
+    img.src = trailImages[imgIndex % trailImages.length];
+    imgIndex++;
+
+    img.style.left = (e.clientX - 100) + 'px';
+    img.style.top = (e.clientY - 70) + 'px';
+    document.body.appendChild(img);
+
+    gsap.to(img, {
+      opacity: 1,
+      duration: 0.001,
+    });
+
+    gsap.to(img, {
+      opacity: 0,
+      scale: 1.4,
+      duration: 1.2,
+      ease: 'power2.out',
+      delay: 0.05,
+      onComplete: () => img.remove(),
+    });
+  });
+
+  section.addEventListener('mouseleave', () => {
+    document.querySelectorAll('.trail-img').forEach(img => {
+      gsap.to(img, {
+        opacity: 0,
+        duration: 0.3,
+        onComplete: () => img.remove(),
+      });
+    });
+  });
 })();
 
 </script>
