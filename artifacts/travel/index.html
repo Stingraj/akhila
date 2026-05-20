@@ -498,12 +498,12 @@
   const tl = gsap.timeline();
   tl.to(spans, {
     color: '#1a1a1a',
-    ease: 'power1.inOut',
+    ease: 'none',
     stagger: {
-      each: 0.3,
+      each: 0.08,
       ease: 'none',
     },
-    duration: 0.001,
+    duration: 0.01,
   });
 
   ScrollTrigger.create({
@@ -511,7 +511,7 @@
     start: 'top top',
     end: 'bottom bottom',
     animation: tl,
-    scrub: 2,
+    scrub: 1,
     pin: '#exploration-sticky',
     pinSpacing: false,
   });
