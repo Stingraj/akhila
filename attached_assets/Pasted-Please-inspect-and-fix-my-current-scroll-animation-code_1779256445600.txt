@@ -1,0 +1,117 @@
+Please inspect and fix my current scroll animation code.
+
+Context:
+The page has 3 separate scroll sections:
+
+1. Canvas frame-sequence section:
+- A video has been exported into image frames.
+- The canvas should scrub through the frames based on scroll progress.
+- The canvas section must stay sticky while the frames animate.
+
+2. Exploration text section:
+- A text paragraph reveals word-by-word as the user scrolls.
+- This section also uses sticky behavior.
+
+3. Destination image mask section:
+- Image panels reveal using clip-path masks.
+- The reveal direction should feel like an up/down mask animation.
+- This section also uses sticky behavior.
+
+Current problem:
+The page triggers a Vite/Replit runtime overlay error:
+[plugin:runtime-error-plugin] (unknown runtime error)
+
+Important:
+Do NOT disable the overlay with server.hmr.overlay = false.
+Please fix the real runtime/layout issue.
+
+Main issue to fix:
+The current code mixes CSS `position: sticky` with GSAP ScrollTrigger `pin` on the same sticky sections. This is causing conflicts, especially with Lenis smooth scrolling and ResizeObserver refresh loops.
+
+Please refactor the scroll system using this rule:
+
+Use CSS `position: sticky` for the sticky layout.
+Use ScrollTrigger only to drive animation progress.
+Do NOT use ScrollTrigger `pin` for these sections.
+
+Required changes:
+
+1. Canvas section:
+- Keep `#sticky-container` as `position: sticky; top: 0; height: 100svh; overflow: hidden;`.
+- Set `#canvas-wrapper` to a real scroll height, for example `height: 800svh;`.
+- Remove `pin: sticky` from the canvas ScrollTrigger.
+- The canvas ScrollTrigger should use:
+  - trigger: `#canvas-wrapper`
+  - start: `top top`
+  - end: `bottom bottom`
+  - scrub: 0.5
+  - invalidateOnRefresh: true
+- It should only update the frame number and progress bar.
+
+2. Exploration text section:
+- Keep `#exploration-sticky` as CSS sticky.
+- Remove `pin: '#exploration-sticky'` from its ScrollTrigger.
+- Remove `pinSpacing: false`.
+- ScrollTrigger should only animate the word color reveal.
+
+3. Destination mask section:
+- Keep `#dest-stage` as CSS sticky.
+- Remove `pin: '#dest-stage'` from its ScrollTrigger.
+- Remove `pinSpacing: false`.
+- ScrollTrigger should only drive the master timeline for the clip-path reveal animation.
+
+4. Lenis:
+- Lenis must only have one RAF loop.
+- Remove the manual `requestAnimationFrame(raf)` loop if GSAP ticker is being used.
+- Keep only this style:
+
+const lenis = new Lenis({
+  duration: 1.1,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  smoothWheel: true,
+  smoothTouch: false,
+});
+
+lenis.on('scroll', ScrollTrigger.update);
+
+gsap.ticker.add((time) => {
+  lenis.raf(time * 1000);
+});
+
+gsap.ticker.lagSmoothing(0);
+
+5. Resize handling:
+- Remove the ResizeObserver that observes the sticky element and calls ScrollTrigger.refresh().
+- This can create a refresh/resize loop.
+- Replace it with a debounced window resize listener:
+
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    resizeCanvas();
+    render();
+    ScrollTrigger.refresh();
+  }, 150);
+}, { passive: true });
+
+6. Do not change:
+- Do not redesign the page.
+- Do not change the text content.
+- Do not change the destination images.
+- Do not remove any of the 3 sections.
+- Do not remove the canvas frame sequence effect.
+- Do not remove the word reveal effect.
+- Do not remove the destination mask reveal effect.
+
+7. Frame sequence:
+- Please verify `frameCount` matches the actual number of images in `/public/frames`.
+- If there are 150 frames, set:
+  const frameCount = 150;
+- The frame path should work in Vite/Replit as:
+  /frames/ezgif-frame-001.jpg
+  /frames/ezgif-frame-002.jpg
+  etc.
+
+Goal:
+Make all 3 sticky scroll sections work smoothly one after another without runtime overlay errors, without layout jumping, and without ScrollTrigger/Lenis conflicts.
