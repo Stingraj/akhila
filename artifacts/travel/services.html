@@ -78,52 +78,115 @@
     max-width: 580px; margin-top: 32px;
   }
 
-  /* SERVICE GRID */
+  /* ── PREMIUM SERVICES SECTION ── */
   #services-grid {
+    background: #FFFFFF;
     padding: clamp(80px, 10vw, 140px) clamp(40px, 5vw, 90px);
   }
+
+  /* Section header */
+  .sg-header {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto clamp(64px, 7vw, 100px);
+  }
+  .sg-eyebrow {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase;
+    color: #D4AF37; margin-bottom: 20px; display: inline-block;
+  }
+  .sg-heading {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: clamp(28px, 3.4vw, 56px);
+    font-weight: 700; line-height: 1.1; color: #1A1A1A;
+    margin-bottom: 20px; letter-spacing: -0.015em;
+  }
+  .sg-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(14px, 1.05vw, 18px);
+    line-height: 1.75; color: #6B7280;
+  }
+
+  /* Grid */
   .services-grid-inner {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
+    gap: clamp(20px, 2vw, 32px);
+    align-items: stretch;
   }
+
+  /* Card */
   .service-card {
-    background: #fff;
-    padding: clamp(32px, 3.5vw, 56px) clamp(28px, 3vw, 48px);
+    background: #FFFFFF;
+    border: 1.5px solid rgba(212,175,55,0.35);
+    border-radius: 20px;
+    padding: clamp(32px, 3vw, 48px) clamp(28px, 2.5vw, 40px);
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    transition: background 0.3s, transform 0.2s;
+    gap: 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.055);
+    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1),
+                box-shadow 0.35s ease,
+                border-color 0.35s ease;
     cursor: default;
+    /* glass feel */
+    backdrop-filter: blur(2px);
+    /* initial state managed by GSAP via gsap.from() — cards visible without JS */
   }
   .service-card:hover {
-    background: #1a2a4a;
-    transform: translateY(-2px);
+    transform: translateY(-6px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.10);
+    border-color: #D4AF37;
   }
-  .service-card:hover .service-card-number,
-  .service-card:hover .service-card-title,
-  .service-card:hover .service-card-desc {
-    color: #f0ede8;
+
+  /* Icon */
+  .service-card-icon {
+    width: 48px; height: 48px; flex-shrink: 0;
+    color: #D4AF37;
+    transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), color 0.3s;
   }
-  .service-card:hover .service-card-title { color: #f0ede8; }
-  .service-card:hover .service-card-desc { color: rgba(240,237,232,0.65); }
-  .service-card-number {
-    font-family: 'Bricolage Grotesque', sans-serif;
-    font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
-    color: #bbb; transition: color 0.3s;
-  }
+  .service-card:hover .service-card-icon { transform: scale(1.12); color: #0B1F3A; }
+
+  /* Title */
   .service-card-title {
     font-family: 'Bricolage Grotesque', sans-serif;
-    font-size: clamp(18px, 1.6vw, 28px);
-    font-weight: 700; line-height: 1.15;
-    color: #1a1a1a; transition: color 0.3s;
+    font-size: clamp(17px, 1.4vw, 22px);
+    font-weight: 700; line-height: 1.2;
+    color: #1A1A1A;
+    transition: color 0.3s;
   }
+  .service-card:hover .service-card-title { color: #0B1F3A; }
+
+  /* Description */
   .service-card-desc {
     font-family: 'Inter', sans-serif;
-    font-size: clamp(13px, 1vw, 16px);
-    line-height: 1.65; color: #777; transition: color 0.3s;
+    font-size: clamp(13px, 0.95vw, 15px);
+    line-height: 1.7; color: #6B7280;
     flex: 1;
   }
+
+  /* Learn More button */
+  .service-card-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: #1A1A1A; background: #D4AF37;
+    border: none; padding: 11px 22px;
+    border-radius: 100px; text-decoration: none;
+    cursor: pointer; align-self: flex-start;
+    transition: background 0.3s ease, color 0.3s ease, transform 0.25s ease;
+  }
+  .service-card-btn:hover {
+    background: #0B1F3A;
+    color: #FFFFFF;
+    transform: translateX(3px);
+  }
+  .service-card-btn svg {
+    width: 12px; height: 12px;
+    transition: transform 0.25s ease;
+  }
+  .service-card-btn:hover svg { transform: translateX(3px); }
 
   /* PROCESS SECTIONS */
   .process-section {
@@ -310,6 +373,8 @@
   }
   @media (max-width: 600px) {
     .services-grid-inner { grid-template-columns: 1fr; }
+    .sg-header { text-align: left; }
+    .sg-eyebrow { text-align: left; }
     .footer-mid-row { grid-template-columns: 1fr; }
   }
 </style>
@@ -337,96 +402,193 @@
 
 <!-- SERVICES GRID -->
 <section id="services-grid">
+
+  <!-- Section header -->
+  <div class="sg-header">
+    <span class="sg-eyebrow">What We Do Best</span>
+    <h2 class="sg-heading">Comprehensive Digital Marketing Services Designed to Grow Your Business Online</h2>
+    <p class="sg-desc">We combine strategy, creativity, technology, and performance marketing to help businesses increase visibility, attract qualified customers, and achieve measurable growth across every digital channel.</p>
+  </div>
+
   <div class="services-grid-inner">
 
+    <!-- 01 SEO -->
     <div class="service-card">
-      <div class="service-card-number">01</div>
+      <svg class="service-card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="22" cy="22" r="14"/><line x1="32" y1="32" x2="43" y2="43"/>
+        <line x1="22" y1="15" x2="22" y2="29"/><line x1="15" y1="22" x2="29" y2="22"/>
+      </svg>
       <h2 class="service-card-title">Search Engine Optimization</h2>
       <p class="service-card-desc">Improve your rankings, attract organic traffic, and grow your visibility on search engines that matter.</p>
+      <a href="/contact.html" class="service-card-btn">Learn More <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
     </div>
 
+    <!-- 02 Social Media -->
     <div class="service-card">
-      <div class="service-card-number">02</div>
+      <svg class="service-card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="36" cy="12" r="4"/><circle cx="12" cy="24" r="4"/><circle cx="36" cy="36" r="4"/>
+        <line x1="16" y1="22" x2="32" y2="14"/><line x1="16" y1="26" x2="32" y2="34"/>
+      </svg>
       <h2 class="service-card-title">Social Media Management</h2>
       <p class="service-card-desc">Manage your brand presence, engage your audience, and stay consistent across social platforms.</p>
+      <a href="/contact.html" class="service-card-btn">Learn More <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
     </div>
 
+    <!-- 03 AI Video -->
     <div class="service-card">
-      <div class="service-card-number">03</div>
+      <svg class="service-card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="6" y="12" width="28" height="24" rx="3"/>
+        <polygon points="42,24 34,18 34,30"/>
+        <line x1="14" y1="20" x2="26" y2="20"/><line x1="14" y1="28" x2="22" y2="28"/>
+      </svg>
       <h2 class="service-card-title">AI Videos Generation</h2>
       <p class="service-card-desc">Create AI-powered videos that help your brand explain, promote, and stand out with speed and consistency.</p>
+      <a href="/contact.html" class="service-card-btn">Learn More <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
     </div>
 
+    <!-- 04 Brand Promotion -->
     <div class="service-card">
-      <div class="service-card-number">04</div>
+      <svg class="service-card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M24 6l4.5 9 10 1.5-7.25 7 1.75 10L24 29l-9 4.5 1.75-10L9.5 16.5l10-1.5z"/>
+      </svg>
       <h2 class="service-card-title">Brand Promotion</h2>
-      <p class="service-card-desc">Increase awareness, strengthen recognition, and reach the right audience through strategic digital campaigns.</p>
+      <p class="service-card-desc">Increase awareness, strengthen recognition, and reach the right audience through strategic digital campaigns and consistent brand communication.</p>
+      <a href="/contact.html" class="service-card-btn">Learn More <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
     </div>
 
+    <!-- 05 PR -->
     <div class="service-card">
-      <div class="service-card-number">05</div>
+      <svg class="service-card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 36V16a4 4 0 014-4h24a4 4 0 014 4v14a4 4 0 01-4 4H18l-10 6z"/>
+        <line x1="16" y1="22" x2="32" y2="22"/><line x1="16" y1="28" x2="24" y2="28"/>
+      </svg>
       <h2 class="service-card-title">Public Relations</h2>
-      <p class="service-card-desc">Build a credible public image through clear communication, reputation-focused messaging, and brand visibility.</p>
+      <p class="service-card-desc">Build a credible public image through clear communication, reputation-focused messaging, and relationship-driven brand visibility.</p>
+      <a href="/contact.html" class="service-card-btn">Learn More <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
     </div>
 
+    <!-- 06 Meta Ads -->
     <div class="service-card">
-      <div class="service-card-number">06</div>
+      <svg class="service-card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="8" y="8" width="32" height="32" rx="8"/>
+        <path d="M18 30c0-4 2-8 6-8s6 4 6 8"/><circle cx="24" cy="18" r="2"/>
+      </svg>
       <h2 class="service-card-title">Meta Ads</h2>
-      <p class="service-card-desc">Run targeted Facebook and Instagram ad campaigns that reach your ideal customers at the right moment.</p>
+      <p class="service-card-desc">Run targeted Facebook and Instagram advertising campaigns that reach your ideal customers and generate measurable results.</p>
+      <a href="/contact.html" class="service-card-btn">Learn More <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
     </div>
 
+    <!-- 07 Google Ads -->
     <div class="service-card">
-      <div class="service-card-number">07</div>
+      <svg class="service-card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="24" cy="24" r="16"/>
+        <path d="M32 24h-8v6h4.5A8 8 0 1124 16v0"/><line x1="32" y1="24" x2="32" y2="24"/>
+      </svg>
       <h2 class="service-card-title">Google Ads</h2>
-      <p class="service-card-desc">Launch high-performing Google search and display campaigns for instant visibility and qualified traffic.</p>
+      <p class="service-card-desc">Launch high-performing Google Search, Display, and Performance Max campaigns for instant visibility and qualified traffic.</p>
+      <a href="/contact.html" class="service-card-btn">Learn More <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
     </div>
 
+    <!-- 08 PPC -->
     <div class="service-card">
-      <div class="service-card-number">08</div>
+      <svg class="service-card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="8,36 18,22 26,30 38,12"/>
+        <polyline points="30,12 38,12 38,20"/>
+      </svg>
       <h2 class="service-card-title">Pay-Per-Click Advertising</h2>
-      <p class="service-card-desc">Get instant results and maximize ROI with targeted PPC campaigns across platforms and networks.</p>
+      <p class="service-card-desc">Generate faster results through targeted PPC campaigns with optimized budgets and higher ROI across platforms.</p>
+      <a href="/contact.html" class="service-card-btn">Learn More <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
     </div>
 
+    <!-- 09 Content -->
     <div class="service-card">
-      <div class="service-card-number">09</div>
+      <svg class="service-card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="10" y="8" width="28" height="32" rx="3"/>
+        <line x1="16" y1="17" x2="32" y2="17"/><line x1="16" y1="23" x2="32" y2="23"/>
+        <line x1="16" y1="29" x2="24" y2="29"/>
+      </svg>
       <h2 class="service-card-title">Content Marketing</h2>
-      <p class="service-card-desc">Create valuable content that attracts, engages, and converts your target audience into loyal customers.</p>
+      <p class="service-card-desc">Create valuable content that attracts, educates, engages, and converts your ideal audience into loyal customers.</p>
+      <a href="/contact.html" class="service-card-btn">Learn More <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
     </div>
 
+    <!-- 10 Email -->
     <div class="service-card">
-      <div class="service-card-number">10</div>
+      <svg class="service-card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="6" y="12" width="36" height="26" rx="3"/>
+        <polyline points="6,12 24,28 42,12"/>
+      </svg>
       <h2 class="service-card-title">Email Marketing</h2>
-      <p class="service-card-desc">Nurture leads, build relationships, and drive sales through strategic, well-crafted email campaigns.</p>
+      <p class="service-card-desc">Build stronger customer relationships through automated email campaigns, newsletters, and strategic lead nurturing.</p>
+      <a href="/contact.html" class="service-card-btn">Learn More <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
     </div>
 
+    <!-- 11 Branding -->
     <div class="service-card">
-      <div class="service-card-number">11</div>
+      <svg class="service-card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="24" cy="20" r="10"/>
+        <path d="M14 36c0-4 4.5-7 10-7s10 3 10 7"/>
+        <line x1="24" y1="10" x2="24" y2="8"/><line x1="30" y1="12" x2="32" y2="10"/>
+        <line x1="18" y1="12" x2="16" y2="10"/>
+      </svg>
       <h2 class="service-card-title">Branding &amp; Creative Strategy</h2>
-      <p class="service-card-desc">Develop a distinctive brand identity and creative strategy that sets you apart from the competition.</p>
+      <p class="service-card-desc">Develop a memorable brand identity with clear messaging, creative direction, and consistent visual communication.</p>
+      <a href="/contact.html" class="service-card-btn">Learn More <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
     </div>
 
+    <!-- 12 Website Design -->
     <div class="service-card">
-      <div class="service-card-number">12</div>
+      <svg class="service-card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="6" y="10" width="36" height="28" rx="3"/>
+        <line x1="6" y1="18" x2="42" y2="18"/>
+        <circle cx="12" cy="14" r="1.5" fill="currentColor"/><circle cx="18" cy="14" r="1.5" fill="currentColor"/>
+        <rect x="12" y="23" width="10" height="10" rx="1"/><line x1="26" y1="25" x2="36" y2="25"/>
+        <line x1="26" y1="29" x2="34" y2="29"/><line x1="26" y1="33" x2="32" y2="33"/>
+      </svg>
       <h2 class="service-card-title">Website Design &amp; Landing Pages</h2>
-      <p class="service-card-desc">Design conversion-focused websites and landing pages that turn visitors into customers and enquiries.</p>
+      <p class="service-card-desc">Design modern, conversion-focused websites and landing pages that turn visitors into customers.</p>
+      <a href="/contact.html" class="service-card-btn">Learn More <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
     </div>
 
+    <!-- 13 Website Creation -->
     <div class="service-card">
-      <div class="service-card-number">13</div>
+      <svg class="service-card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 36V12a2 2 0 012-2h24a2 2 0 012 2v24"/>
+        <line x1="6" y1="36" x2="42" y2="36"/>
+        <line x1="20" y1="36" x2="20" y2="42"/><line x1="28" y1="36" x2="28" y2="42"/>
+        <line x1="16" y1="42" x2="32" y2="42"/>
+        <line x1="18" y1="20" x2="30" y2="20"/><line x1="18" y1="26" x2="26" y2="26"/>
+      </svg>
       <h2 class="service-card-title">Website Creation</h2>
-      <p class="service-card-desc">Clean, business-focused websites that present your brand clearly and support trust and visibility.</p>
+      <p class="service-card-desc">Clean, business-focused websites that build trust, improve visibility, and generate enquiries for your business.</p>
+      <a href="/contact.html" class="service-card-btn">Learn More <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
     </div>
 
+    <!-- 14 Domain -->
     <div class="service-card">
-      <div class="service-card-number">14</div>
+      <svg class="service-card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="24" cy="24" r="16"/>
+        <ellipse cx="24" cy="24" rx="8" ry="16"/>
+        <line x1="8" y1="24" x2="40" y2="24"/>
+        <line x1="10" y1="16" x2="38" y2="16"/>
+        <line x1="10" y1="32" x2="38" y2="32"/>
+      </svg>
       <h2 class="service-card-title">Domain Management</h2>
-      <p class="service-card-desc">Manage your domain setup so your brand stays accessible, professional, and properly connected online.</p>
+      <p class="service-card-desc">Manage your domains, DNS, email configuration, SSL, and digital infrastructure professionally and securely.</p>
+      <a href="/contact.html" class="service-card-btn">Learn More <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
     </div>
 
+    <!-- 15 Analytics -->
     <div class="service-card">
-      <div class="service-card-number">15</div>
+      <svg class="service-card-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="8" y="28" width="8" height="12" rx="1"/>
+        <rect x="20" y="18" width="8" height="22" rx="1"/>
+        <rect x="32" y="10" width="8" height="30" rx="1"/>
+        <polyline points="8,20 20,14 32,8"/>
+      </svg>
       <h2 class="service-card-title">Analytics &amp; Performance Tracking</h2>
-      <p class="service-card-desc">Track, measure, and optimize every campaign with data-driven insights and clear performance reporting.</p>
+      <p class="service-card-desc">Track campaign performance using data-driven reporting, insights, and continuous optimization for maximum ROI.</p>
+      <a href="/contact.html" class="service-card-btn">Learn More <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></a>
     </div>
 
   </div>
@@ -571,5 +733,40 @@
   </div>
 </footer>
 
+<!-- GSAP ScrollTrigger stagger for service cards -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* Stagger-fade cards as they enter the viewport */
+  gsap.utils.toArray('.service-card').forEach(function(card, i) {
+    gsap.from(card, {
+      opacity: 0,
+      y: 44,
+      duration: 0.72,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: card,
+        start: 'top 90%',
+        toggleActions: 'play none none none'
+      },
+      delay: (i % 3) * 0.11   /* stagger by column position */
+    });
+  });
+
+  /* Fade-up section header */
+  gsap.from('.sg-header', {
+    opacity: 0,
+    y: 30,
+    duration: 0.9,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '.sg-header',
+      start: 'top 85%',
+      toggleActions: 'play none none none'
+    }
+  });
+</script>
 </body>
 </html>

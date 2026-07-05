@@ -1,0 +1,171 @@
+Update the website by adding a brand-new, premium "Services" section that matches the quality of the existing template. Do NOT redesign the website or remove any existing animations. Keep the same visual language, spacing, typography, hover effects, transitions, and responsive behavior.
+
+OBJECTIVE
+Create a dedicated "What We Do Best" section that showcases every service RANAU offers in a modern, premium, editorial-style layout.
+
+SECTION HEADER
+
+Small Label:
+WHAT WE DO BEST
+
+Main Heading:
+Comprehensive Digital Marketing Services Designed to Grow Your Business Online
+
+Description:
+We combine strategy, creativity, technology, and performance marketing to help businesses increase visibility, attract qualified customers, and achieve measurable growth across every digital channel.
+
+SECTION LAYOUT
+
+• Display services in a beautiful responsive card grid.
+• 3 columns on desktop.
+• 2 columns on tablet.
+• 1 column on mobile.
+• Every card should have:
+  - Premium icon
+  - Service title
+  - Short description
+  - "Learn More" button
+  - Elegant hover animation
+  - Smooth fade and lift animation
+  - Rounded corners
+  - Soft shadow
+  - Equal card heights
+  - Comfortable spacing
+• Stagger card animations while scrolling.
+• Keep animations subtle and premium.
+
+SERVICES
+
+1. Search Engine Optimization
+Improve your rankings, attract organic traffic, and grow your visibility on search engines.
+
+2. Social Media Management
+Manage your brand presence, engage your audience, and stay consistent across social platforms.
+
+3. AI Videos Generation
+Create AI-powered videos that help your brand explain, promote, and stand out with speed and consistency.
+
+4. Brand Promotion
+We help brands increase awareness, strengthen recognition, and reach the right audience through strategic digital campaigns and consistent brand communication.
+
+5. Public Relations
+We support businesses in building a credible public image through clear communication, reputation-focused messaging, and relationship-driven brand visibility.
+
+6. Meta Ads
+Run targeted Facebook and Instagram advertising campaigns that reach your ideal customers and generate measurable results.
+
+7. Google Ads
+Launch high-performing Google Search, Display, and Performance Max campaigns for instant visibility.
+
+8. Pay-Per-Click Advertising
+Generate faster results through targeted PPC campaigns with optimized budgets and higher ROI.
+
+9. Content Marketing
+Create valuable content that attracts, educates, engages, and converts your ideal audience.
+
+10. Email Marketing
+Build stronger customer relationships through automated email campaigns, newsletters, and lead nurturing.
+
+11. Branding & Creative Strategy
+Develop a memorable brand identity with clear messaging, creative direction, and consistent visual communication.
+
+12. Website Design & Landing Pages
+Design modern, conversion-focused websites and landing pages that turn visitors into customers.
+
+13. Website Creation
+We create clean, business-focused websites that build trust, improve visibility, and generate enquiries.
+
+14. Domain Management
+Manage your domains, DNS, email configuration, SSL, and digital infrastructure professionally.
+
+15. Analytics & Performance Tracking
+Track campaign performance using data-driven reporting, insights, and continuous optimization.
+
+DESIGN DIRECTION
+
+Use the current premium design language already present throughout the website.
+
+Do NOT introduce random colors.
+
+Use this color palette consistently:
+
+Primary Background:
+Pure White (#FFFFFF)
+
+Primary Accent:
+Luxury Gold (#D4AF37 or similar)
+
+Secondary Accent:
+Deep Navy Blue (#0B1F3A or match the current footer blue already used on the website)
+
+Text:
+Dark Charcoal (#1A1A1A)
+
+Muted Text:
+Soft Gray (#6B7280)
+
+Buttons:
+Gold background with dark text.
+On hover transition to deep navy.
+
+Cards:
+White background
+Thin gold border
+Soft shadow
+Large border radius
+Subtle glass feel
+
+Icons:
+Gold outline with navy hover state.
+
+SECTION SPACING
+
+Increase whitespace throughout the section.
+Use generous padding.
+Maintain luxury editorial spacing.
+Avoid cramped layouts.
+
+TYPOGRAPHY
+
+Use the existing fonts already used in the website.
+
+Large bold heading.
+Readable paragraph width.
+Balanced hierarchy.
+
+ANIMATIONS
+
+Keep all existing animations.
+
+Add:
+• Fade-up on scroll
+• Slight card lift on hover
+• Icon scale animation
+• Button hover animation
+• Smooth easing
+• No excessive motion
+
+RESPONSIVE
+
+Ensure the section looks excellent on:
+• Desktop
+• Laptop
+• Tablet
+• Mobile
+
+No overflow.
+No broken cards.
+No uneven heights.
+
+QUALITY
+
+The finished section should feel like an award-winning premium digital agency website rather than a basic services grid.
+
+Maintain the existing design identity while making this new Services section feel like it was originally part of the template.
+
+After implementation:
+- Test every animation.
+- Verify responsive layouts.
+- Fix spacing inconsistencies.
+- Remove any duplicate services elsewhere if necessary.
+- Ensure there are no console errors or layout issues.
