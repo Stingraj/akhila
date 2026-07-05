@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Travel Next Level</title>
+<title>RANAU — Results-Driven Digital Marketing</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   @font-face {
@@ -27,7 +27,6 @@
   #canvas-wrapper {
     position: relative;
     width: 100%;
-    /* JS sets actual scroll distance via ScrollTrigger end; height here is a placeholder */
   }
   #sticky-container {
     position: sticky;
@@ -74,8 +73,46 @@
     50%     { opacity: 1;   transform: scaleY(1.2); }
   }
 
-  /* ---- DESTINATIONS SECTION ---- */
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  /* ---- HERO STATS ---- */
+  #hero-stats {
+    position: absolute;
+    bottom: clamp(32px, 5vw, 96px);
+    right: clamp(40px, 4.7vw, 90px);
+    z-index: 10;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    pointer-events: none;
+  }
+  .hero-stat-card {
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: clamp(10px, 1vw, 18px) clamp(12px, 1.2vw, 22px);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: clamp(90px, 9vw, 160px);
+  }
+  .hero-stat-card:first-child { border-radius: 8px 0 0 0; }
+  .hero-stat-card:nth-child(2) { border-radius: 0 8px 0 0; }
+  .hero-stat-card:nth-child(3) { border-radius: 0 0 0 8px; }
+  .hero-stat-card:last-child { border-radius: 0 0 8px 0; }
+  .hero-stat-number {
+    font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+    font-size: clamp(14px, 1.35vw, 26px);
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.2;
+  }
+  .hero-stat-label {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(9px, 0.6vw, 11px);
+    color: #777;
+    line-height: 1.3;
+  }
+
+  /* ---- SERVICES SECTION ---- */
   body { background: #f0ede8; font-family: 'Inter', sans-serif; }
 
   .section-header {
@@ -108,6 +145,7 @@
     line-height: 1.8;
   }
 
+  /* ---- FOOTER ---- */
   #main-footer {
     background: #0a0806;
     width: 100%;
@@ -310,6 +348,9 @@
     .footer-stat {
       order: 3;
     }
+    #hero-stats {
+      display: none;
+    }
   }
 
   @media (max-width: 480px) {
@@ -333,7 +374,7 @@
     z-index: 2;
   }
 
-  #destinations-section {
+  #services-section {
     position: relative;
     background: #0a0806;
     z-index: 1;
@@ -358,7 +399,7 @@
     transform: translate(-50%, -50%);
   }
 
-  .dest-full {
+  .service-full {
     position: sticky;
     top: 0;
     width: 100%;
@@ -366,25 +407,26 @@
     overflow: hidden;
     transform-origin: center top;
     will-change: transform;
+    display: flex;
+    align-items: flex-end;
   }
 
-  .dest-full img {
+  .service-bg {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    display: block;
   }
 
-  .dest-full::after {
+  .service-full::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+    background: linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);
+    z-index: 1;
   }
 
-  .dest-full-info {
+  .service-full-info {
     position: absolute;
     bottom: 80px;
     left: 80px;
@@ -392,7 +434,7 @@
     color: #fff;
   }
 
-  .dest-full-label {
+  .service-full-label {
     display: block;
     font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
     font-size: 11px;
@@ -402,7 +444,7 @@
     margin-bottom: 12px;
   }
 
-  .dest-full-title {
+  .service-full-title {
     font-family: 'Bricolage Grotesque', 'Playfair Display', serif;
     font-size: clamp(52px, 7vw, 96px);
     font-weight: 600;
@@ -411,23 +453,14 @@
     color: #fff;
   }
 
-  .dest-full-desc {
+  .service-full-desc {
     font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
     font-size: 15px;
     color: rgba(255,255,255,0.6);
     max-width: 420px;
     line-height: 1.7;
-    margin-bottom: 24px;
   }
 
-  .dest-full-meta {
-    display: flex;
-    gap: 32px;
-    font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
-    font-size: 13px;
-    color: rgba(255,255,255,0.45);
-    letter-spacing: 0.1em;
-  }
   #window-sticky {
     position: sticky;
     top: 0;
@@ -495,6 +528,8 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
     cursor: pointer;
+    text-decoration: none;
+    color: inherit;
   }
   .nav-links {
     display: flex;
@@ -533,89 +568,79 @@
     z-index: 10;
     pointer-events: none;
   }
+  #hero-eyebrow {
+    font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+    font-size: clamp(10px, 0.7vw, 13px);
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(26, 42, 74, 0.7);
+    margin-bottom: clamp(10px, 1vw, 18px);
+  }
   #hero-title {
     font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
     font-size: clamp(36px, 4.7vw, 90px);
     font-weight: 700;
     line-height: 1.0;
     color: #1a2a4a;
-    max-width: clamp(320px, 35vw, 680px);
+    max-width: clamp(320px, 40vw, 760px);
     margin: 0;
   }
   #hero-sub {
     font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
-    font-size: clamp(14px, 1.25vw, 24px);
+    font-size: clamp(14px, 1.1vw, 20px);
     font-weight: 400;
-    line-height: 1.5;
+    line-height: 1.6;
     color: #1a2a4a;
-    max-width: clamp(280px, 25vw, 480px);
+    max-width: clamp(280px, 28vw, 520px);
     position: absolute;
     bottom: clamp(32px, 5vw, 96px);
     left: 0;
+    opacity: 0.8;
   }
-  #hero-card {
+
+  #hero-buttons {
     position: absolute;
     bottom: clamp(32px, 5vw, 96px);
-    right: clamp(40px, 4.7vw, 90px);
-    z-index: 10;
+    left: clamp(0px, 0vw, 0px);
     display: flex;
-    align-items: stretch;
-    pointer-events: none;
-    height: clamp(64px, 7.2vw, 138px);
+    gap: 12px;
+    pointer-events: all;
   }
-  #hero-card-img-wrap {
-    width: clamp(106px, 10.6vw, 203px);
-    height: 100%;
-    overflow: hidden;
-    border-radius: 8px 0 0 8px;
-    flex-shrink: 0;
-    background: rgba(255,255,255,0.6);
-  }
-  #hero-card-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  #hero-card-content {
-    width: clamp(128px, 13.4vw, 257px);
-    height: 100%;
-    background: rgba(255,255,255,0.88);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 0 8px 8px 0;
-    padding: clamp(8px, 0.83vw, 16px) clamp(10px, 1vw, 19px);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 3px;
-  }
-  #hero-card-label {
-    font-family: 'Inter', sans-serif;
-    font-size: clamp(9px, 0.57vw, 11px);
-    color: #999;
-    letter-spacing: 0.05em;
-  }
-  #hero-card-title {
-    font-family: 'Inter', sans-serif;
-    font-size: clamp(12px, 0.83vw, 16px);
+  .hero-btn-primary {
+    font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+    font-size: clamp(10px, 0.7vw, 13px);
     font-weight: 600;
-    color: #1a1a1a;
-    line-height: 1.3;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #fff;
+    background: #1a2a4a;
+    border: none;
+    padding: clamp(10px, 0.9vw, 16px) clamp(18px, 1.5vw, 28px);
+    border-radius: 100px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+    display: inline-block;
   }
-  #hero-card-desc {
-    font-family: 'Inter', sans-serif;
-    font-size: clamp(10px, 0.63vw, 12px);
-    color: #777;
-    line-height: 1.5;
-    flex: 1;
+  .hero-btn-primary:hover { background: #243a66; transform: translateY(-1px); }
+  .hero-btn-outline {
+    font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+    font-size: clamp(10px, 0.7vw, 13px);
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #1a2a4a;
+    background: transparent;
+    border: 1.5px solid rgba(26,42,74,0.35);
+    padding: clamp(10px, 0.9vw, 16px) clamp(18px, 1.5vw, 28px);
+    border-radius: 100px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.3s, transform 0.2s;
+    display: inline-block;
   }
-  #hero-card-link {
-    font-family: 'Inter', sans-serif;
-    font-size: clamp(10px, 0.63vw, 12px);
-    color: #3b82f6;
-    font-weight: 500;
-  }
+  .hero-btn-outline:hover { border-color: #1a2a4a; transform: translateY(-1px); }
 
   #window-hero-left {
     position: absolute;
@@ -682,18 +707,101 @@
     0%   { opacity: 1; transform: scale(1); }
     100% { opacity: 0; transform: scale(1.35); }
   }
+
+  /* ---- CTA SECTION ---- */
+  #cta-section {
+    background: #f0ede8;
+    padding: clamp(80px, 10vw, 160px) clamp(40px, 5vw, 90px);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(20px, 2.5vw, 40px);
+  }
+  .cta-eyebrow {
+    font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #999;
+  }
+  .cta-heading {
+    font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+    font-size: clamp(32px, 4vw, 72px);
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.05;
+    max-width: 800px;
+  }
+  .cta-body {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(15px, 1.2vw, 22px);
+    color: #888;
+    line-height: 1.6;
+    max-width: 560px;
+  }
+  .cta-buttons {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .cta-btn-dark {
+    font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+    font-size: clamp(11px, 0.78vw, 14px);
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #f0ede8;
+    background: #0a0806;
+    padding: clamp(12px, 1vw, 18px) clamp(24px, 2vw, 36px);
+    border-radius: 100px;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+    display: inline-block;
+  }
+  .cta-btn-dark:hover { background: #1a1a1a; transform: translateY(-1px); }
+  .cta-btn-light {
+    font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+    font-size: clamp(11px, 0.78vw, 14px);
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #0a0806;
+    background: transparent;
+    border: 1.5px solid rgba(10,8,6,0.25);
+    padding: clamp(12px, 1vw, 18px) clamp(24px, 2vw, 36px);
+    border-radius: 100px;
+    text-decoration: none;
+    transition: border-color 0.3s, transform 0.2s;
+    display: inline-block;
+  }
+  .cta-btn-light:hover { border-color: #0a0806; transform: translateY(-1px); }
+
+  /* ---- NAV RESPONSIVE ---- */
+  @media (max-width: 768px) {
+    #main-nav {
+      padding: 24px 24px;
+    }
+    .nav-links {
+      display: none;
+    }
+    .hero-btn-outline {
+      display: none;
+    }
+  }
 </style>
 </head>
 <body>
 <nav id="main-nav">
-  <div class="nav-logo">FLY</div>
+  <a href="/" class="nav-logo">RANAU</a>
   <div class="nav-links">
-    <a href="#">Destinations</a>
-    <a href="#">Journeys</a>
-    <a href="#">Journal</a>
+    <a href="/services.html">Services</a>
+    <a href="/founder.html">Founder</a>
+    <a href="/contact.html">Contact</a>
   </div>
   <div class="nav-cta">
-    <a href="#">Book Now</a>
+    <a href="/contact.html">Get a Free Strategy</a>
   </div>
 </nav>
 
@@ -709,35 +817,49 @@
     </div>
 
     <div id="hero-content">
-      <h1 id="hero-title">Your next adventure is just one door away</h1>
-      <p id="hero-sub">Unique travel destinations await to spark curiosity and inspire your next adventure. Discover hidden gems around the world waiting to be explored.</p>
+      <div id="hero-eyebrow">Results-Driven Digital Marketing</div>
+      <h1 id="hero-title">We Engineer Attention</h1>
+      <p id="hero-sub">We help brands build visibility, generate qualified leads, and grow with clear digital strategy, creative execution, and performance-focused marketing.</p>
+      <div id="hero-buttons">
+        <a href="/contact.html" class="hero-btn-primary">Get a Free Strategy</a>
+        <a href="/services.html" class="hero-btn-outline">Explore Services</a>
+      </div>
     </div>
 
-    <div id="hero-card">
-      <div id="hero-card-img-wrap">
-        <img src="/images/Moraine Lake Left.png" alt="Moraine Lake" id="hero-card-img">
+    <div id="hero-stats">
+      <div class="hero-stat-card">
+        <div class="hero-stat-number">200+</div>
+        <div class="hero-stat-label">Happy Clients</div>
       </div>
-      <div id="hero-card-content">
-        <div id="hero-card-label">Canada · Alberta</div>
-        <div id="hero-card-title">Moraine Lake</div>
-        <div id="hero-card-desc">Raw wilderness and crystalline waters nestled deep in the Canadian Rockies.</div>
-        <div id="hero-card-link">Explore →</div>
+      <div class="hero-stat-card">
+        <div class="hero-stat-number">350+</div>
+        <div class="hero-stat-label">Projects Completed</div>
+      </div>
+      <div class="hero-stat-card">
+        <div class="hero-stat-number">98%</div>
+        <div class="hero-stat-label">Client Satisfaction</div>
+      </div>
+      <div class="hero-stat-card">
+        <div class="hero-stat-number">5X</div>
+        <div class="hero-stat-label">Average ROI Growth</div>
       </div>
     </div>
   </div>
 </div>
 
+<!-- WHAT WE DO -->
 <div id="exploration-section" style="background:#f0ede8; position:relative;">
   <div id="exploration-sticky" style="position:sticky; top:0; height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:60px 80px; box-sizing:border-box;">
     <h2 style="margin:0 0 32px; font-family:'Bricolage Grotesque','Inter',sans-serif; font-weight:700; text-transform:none; font-size:clamp(36px,5vw,76px); line-height:1.05; color:#1a1a1a; max-width:1000px;">
-      Exploration Trips and<br>Exclusive Getaways
+      Digital Growth Through<br>Strategy &amp; Performance
     </h2>
     <p id="exploration-body" style="margin:0; font-family:'Inter',sans-serif; font-weight:500; font-size:clamp(18px,2vw,30px); line-height:1.45; max-width:900px; color:#d3d0cb;">
-      Travel is not about results or exchange of experience. It changes us, linking individuals, cultures and destinations in a very meaningful manner. By embracing most unique travel experiences and dreamy destinations, we gain a richer understanding of the world and create unforgettable memories.
+      We help brands build visibility, generate qualified leads, and grow with clear digital strategy, creative execution, and performance-focused marketing that delivers measurable results and sustainable long-term growth.
     </p>
   </div>
 </div>
 
+<!-- ABOUT / WINDOW PARALLAX -->
 <div id="window-section">
   <div id="window-sticky">
     <div id="clouds-track">
@@ -747,82 +869,96 @@
       <img src="/images/Door.png" alt="" id="window-img">
     </div>
     <div id="window-hero-left">
-      <h1 id="window-hero-title">Your gateway to<br>the extraordinary</h1>
-      <p id="window-hero-desc">Every journey is crafted around your curiosity, time, and dreams so you can focus on what truly matters, while we take care of everything else</p>
+      <h1 id="window-hero-title">We build digital<br>growth for brands</h1>
+      <p id="window-hero-desc">RANAU helps businesses build stronger visibility, sharper positioning, and sustainable digital growth through clear strategy and consistent execution.</p>
     </div>
 
     <div id="window-hero-right">
       <div id="window-hero-line1">We are</div>
-      <div id="window-hero-line2">destination</div>
+      <div id="window-hero-line2">RANAU</div>
     </div>
-    <div id="cinematic-text">Together, let's land in the world's most extraordinary places experience the culture and discover the people who call them home</div>
+    <div id="cinematic-text">Clear strategy, consistent communication, and meaningful digital presence — that's how we build brands that grow.</div>
   </div>
 </div>
 
-<div id="destinations-section">
+<!-- SERVICES SHOWCASE -->
+<div id="services-section">
 
-  <div class="dest-full" id="dest-moraine">
-    <img src="/images/Moraine Lake.png" alt="Moraine Lake">
-    <div class="dest-full-info">
-      <span class="dest-full-label">Canada · Alberta</span>
-      <h2 class="dest-full-title">Moraine Lake</h2>
-      <p class="dest-full-desc">Raw wilderness and crystalline waters nestled deep in the Canadian Rockies.</p>
-      <div class="dest-full-meta">
-        <span>7 Nights</span>
-        <span>From $1,800</span>
-      </div>
+  <div class="service-full" id="svc-seo">
+    <div class="service-bg" style="background: linear-gradient(135deg, #0f1c35 0%, #1a3a6e 50%, #0a1428 100%);"></div>
+    <div class="service-full-info">
+      <span class="service-full-label">Digital Marketing · 01</span>
+      <h2 class="service-full-title">Search Engine<br>Optimization</h2>
+      <p class="service-full-desc">Improve your rankings, attract organic traffic, and grow your visibility on search engines that matter.</p>
     </div>
   </div>
 
-  <div class="dest-full" id="dest-tokyo">
-    <img src="/images/Tokyo.png" alt="Tokyo">
-    <div class="dest-full-info">
-      <span class="dest-full-label">Japan · Kantō</span>
-      <h2 class="dest-full-title">Tokyo</h2>
-      <p class="dest-full-desc">Ancient calm meets electric energy in the world's most captivating city.</p>
-      <div class="dest-full-meta">
-        <span>8 Nights</span>
-        <span>From $2,100</span>
-      </div>
+  <div class="service-full" id="svc-social">
+    <div class="service-bg" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);"></div>
+    <div class="service-full-info">
+      <span class="service-full-label">Digital Marketing · 02</span>
+      <h2 class="service-full-title">Social Media<br>Management</h2>
+      <p class="service-full-desc">Manage your brand presence, engage your audience, and stay consistent across social platforms.</p>
     </div>
   </div>
 
-  <div class="dest-full" id="dest-amalfi">
-    <img src="/images/Amalfi Coast.png" alt="Amalfi Coast">
-    <div class="dest-full-info">
-      <span class="dest-full-label">Italy · Campania</span>
-      <h2 class="dest-full-title">Amalfi Coast</h2>
-      <p class="dest-full-desc">Cliffside beauty draped above the shimmering Mediterranean Sea.</p>
-      <div class="dest-full-meta">
-        <span>6 Nights</span>
-        <span>From $2,800</span>
-      </div>
+  <div class="service-full" id="svc-brand">
+    <div class="service-bg" style="background: linear-gradient(135deg, #1a0a00 0%, #3d1c02 50%, #1a0a00 100%);"></div>
+    <div class="service-full-info">
+      <span class="service-full-label">Digital Marketing · 03</span>
+      <h2 class="service-full-title">Brand<br>Promotion</h2>
+      <p class="service-full-desc">Increase awareness, strengthen recognition, and reach the right audience through strategic campaigns.</p>
     </div>
   </div>
 
-  <div class="dest-full" id="dest-maldives">
-    <img src="/images/Maldives.png" alt="Maldives">
-    <div class="dest-full-info">
-      <span class="dest-full-label">Maldives · Indian Ocean</span>
-      <h2 class="dest-full-title">Maldives</h2>
-      <p class="dest-full-desc">Infinite blue and absolute stillness — the purest escape on earth.</p>
-      <div class="dest-full-meta">
-        <span>9 Nights</span>
-        <span>From $4,200</span>
-      </div>
+  <div class="service-full" id="svc-ads">
+    <div class="service-bg" style="background: linear-gradient(135deg, #001a0f 0%, #003d1c 50%, #001a0f 100%);"></div>
+    <div class="service-full-info">
+      <span class="service-full-label">Digital Marketing · 04</span>
+      <h2 class="service-full-title">Google &amp;<br>Meta Ads</h2>
+      <p class="service-full-desc">Run targeted ad campaigns that reach your ideal customers and deliver measurable ROI across platforms.</p>
     </div>
   </div>
 
+  <div class="service-full" id="svc-web">
+    <div class="service-bg" style="background: linear-gradient(135deg, #1a001a 0%, #3d003d 50%, #1a001a 100%);"></div>
+    <div class="service-full-info">
+      <span class="service-full-label">Digital Marketing · 05</span>
+      <h2 class="service-full-title">Website<br>Creation</h2>
+      <p class="service-full-desc">Clean, business-focused websites that present your brand clearly and support trust, visibility, and enquiries.</p>
+    </div>
+  </div>
+
+  <div class="service-full" id="svc-pr">
+    <div class="service-bg" style="background: linear-gradient(135deg, #0a1a1a 0%, #003d3d 50%, #0a1a1a 100%);"></div>
+    <div class="service-full-info">
+      <span class="service-full-label">Digital Marketing · 06</span>
+      <h2 class="service-full-title">Public<br>Relations</h2>
+      <p class="service-full-desc">Build a credible public image through clear communication, reputation-focused messaging, and brand visibility.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- CTA SECTION -->
+<div id="cta-section">
+  <div class="cta-eyebrow">Ready to Grow?</div>
+  <h2 class="cta-heading">Let's Engineer Attention for Your Brand</h2>
+  <p class="cta-body">Tell us about your business and we'll help you identify the right digital strategy to grow online.</p>
+  <div class="cta-buttons">
+    <a href="/contact.html" class="cta-btn-dark">Get a Free Strategy</a>
+    <a href="/contact.html" class="cta-btn-light">Contact Us</a>
+  </div>
 </div>
 
 <footer id="main-footer">
   <div class="footer-inner">
 
     <div class="footer-top-row">
-      <div class="footer-logo-big">FLY</div>
+      <div class="footer-logo-big">RANAU</div>
       <div class="footer-top-right">
-        <div class="footer-tagline">Curated journeys to the world's<br>most extraordinary places.</div>
-        <a href="#" class="footer-cta-btn">Begin Your Journey →</a>
+        <div class="footer-tagline">RANAU helps businesses strengthen visibility, build credibility, and achieve measurable digital growth.</div>
+        <a href="/contact.html" class="footer-cta-btn">Get a Free Strategy →</a>
       </div>
     </div>
 
@@ -830,54 +966,47 @@
 
     <div class="footer-mid-row">
       <div class="footer-col">
-        <div class="footer-col-title">Destinations</div>
+        <div class="footer-col-title">Quick Links</div>
         <ul>
-          <li><a href="#">Moraine Lake</a><span>01</span></li>
-          <li><a href="#">Tokyo</a><span>02</span></li>
-          <li><a href="#">Amalfi Coast</a><span>03</span></li>
-          <li><a href="#">Maldives</a><span>04</span></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/founder.html">Founder</a></li>
+          <li><a href="/contact.html">Contact Us</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <div class="footer-col-title">Journeys</div>
+        <div class="footer-col-title">Services</div>
         <ul>
-          <li><a href="#">Private Tours</a></li>
-          <li><a href="#">Group Escapes</a></li>
-          <li><a href="#">Bespoke Itineraries</a></li>
-          <li><a href="#">Concierge</a></li>
+          <li><a href="/services.html">SEO</a></li>
+          <li><a href="/services.html">Social Media</a></li>
+          <li><a href="/services.html">AI Videos</a></li>
+          <li><a href="/services.html">Brand Promotion</a></li>
+          <li><a href="/services.html">Google Ads</a></li>
+          <li><a href="/services.html">Content Marketing</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <div class="footer-col-title">Company</div>
         <ul>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Journal</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">Press</a></li>
+          <li><a href="/founder.html">About the Founder</a></li>
+          <li><a href="/services.html">What We Do</a></li>
+          <li><a href="/contact.html">Work With Us</a></li>
         </ul>
       </div>
       <div class="footer-col footer-col-info">
         <div class="footer-col-title">Contact</div>
-        <p>hello@fly.travel</p>
-        <p>+1 (800) FLY-NEXT</p>
-        <div class="footer-social">
-          <a href="#">Instagram</a>
-          <a href="#">Twitter</a>
-          <a href="#">LinkedIn</a>
-        </div>
+        <p>hello@ranaudigital.com</p>
+        <p>9010897813</p>
+        <p>India</p>
       </div>
     </div>
 
     <div class="footer-divider"></div>
 
     <div class="footer-bottom-row">
-      <p>© 2026 Fly · All rights reserved</p>
-      <div class="footer-stat">04 Destinations · Worldwide</div>
-      <div class="footer-legal">
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-        <a href="#">Cookies</a>
-      </div>
+      <p>© 2025 RANAU. All rights reserved.</p>
+      <div class="footer-stat">Results-Driven Digital Marketing</div>
+      <div class="footer-stat">© 2025 RANAU</div>
     </div>
 
   </div>
@@ -888,13 +1017,11 @@
 <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js" integrity="sha384-eD5ubmuCcvTdCADWuSchJYE7wcj2nzNr0itbrh6w/KJyBiltSZ8w3VFRBSWu5YQ8" crossorigin="anonymous"></script>
 <script>
   gsap.registerPlugin(ScrollTrigger);
-  /* ---------- CONFIG ---------- */
   let scrollReady = false;
   const frameCount = 123;
   const currentFrame = (index) =>
     `/frames/ezgif-frame-${(index + 1).toString().padStart(3, "0")}.jpg`;
 
-  /* ---------- ELEMENTS ---------- */
   const canvas       = document.getElementById('frame-canvas');
   const ctx          = canvas.getContext('2d');
   const wrapper      = document.getElementById('canvas-wrapper');
@@ -902,7 +1029,6 @@
   const progressBar  = document.getElementById('progress-bar');
   const scrollHint   = document.getElementById('scroll-hint');
 
-  /* ---------- CANVAS SIZING (object-fit: cover) ---------- */
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
   function resizeCanvas() {
@@ -932,27 +1058,17 @@
     const iw = img.naturalWidth;
     const ih = img.naturalHeight;
 
-    // --- BỘ LỌC CẮT VIỀN ĐEN AI ---
-    // Mặc định cắt 12% viền đen trên và dưới. 
-    // Nếu vẫn còn thấy viền đen mỏng, bro đổi 0.12 thành 0.13 hoặc 0.14 nhé.
-    const blackBarRatio = 0.12; 
-
-    // Tính chiều cao phần ảnh thật
+    const blackBarRatio = 0.12;
     const realHeight = ih * (1 - (blackBarRatio * 2));
-
-    // Scale ảnh lấp đầy màn hình
     const scale = Math.max(cw / iw, ch / realHeight);
-
     const dw = iw * scale;
     const dh = ih * scale;
-
     const dx = (cw - dw) / 2;
     const dy = (ch - dh) / 2;
 
     ctx.drawImage(img, dx, dy, dw, dh);
   }
 
-  /* ---------- PRELOAD FRAMES ---------- */
   const images = new Array(frameCount);
   let loaded = 0;
 
@@ -968,8 +1084,6 @@
           if (loaded === frameCount) resolve();
         };
         img.onload = () => {
-          // Force a full decode so the first paint on scroll is instant
-          // and the frame stays in the decoded-image cache.
           if (typeof img.decode === 'function') {
             img.decode().then(done, done);
           } else {
@@ -983,7 +1097,6 @@
     });
   }
 
-  /* ---------- SCROLL SETUP ---------- */
   const state = { frame: 0 };
 
   function render() {
@@ -992,7 +1105,6 @@
   }
 
   function initScroll() {
-    /* Lenis smooth scroll */
     const lenis = new Lenis({
       duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -1003,7 +1115,6 @@
     gsap.ticker.lagSmoothing(0);
     lenis.on('scroll', ScrollTrigger.update);
 
-    /* Frame scrub */
     gsap.to(state, {
       frame: frameCount - 1,
       ease: 'none',
@@ -1017,7 +1128,6 @@
         onUpdate: (self) => {
           const p = self.progress;
           progressBar.style.width = (p * 100) + '%';
-
           if (p > 0.03) {
             gsap.to(scrollHint, { opacity: 0, duration: 0.4, overwrite: true });
           } else {
@@ -1029,10 +1139,10 @@
     });
 
     const heroContent = document.getElementById('hero-content');
-    const heroCard = document.getElementById('hero-card');
+    const heroStats = document.getElementById('hero-stats');
 
-    if (heroContent && heroCard) {
-      gsap.to([heroContent, heroCard], {
+    if (heroContent) {
+      gsap.to([heroContent, heroStats].filter(Boolean), {
         y: -80,
         opacity: 0,
         ease: 'power2.in',
@@ -1045,7 +1155,6 @@
       });
     }
 
-    /* Resize handling */
     const ro = new ResizeObserver(() => {
       resizeCanvas();
       render();
@@ -1055,7 +1164,6 @@
 
     scrollReady = true;
 
-    /* ---------- NAVBAR HIDE/SHOW ---------- */
     (function initNavbar() {
       const nav = document.getElementById('main-nav');
       if (!nav) return;
@@ -1072,12 +1180,9 @@
     })();
   }
 
-  /* ---------- BOOT ---------- */
   resizeCanvas();
   initScroll();
-  preloadAll().then(() => {
-    render();
-  });
+  preloadAll().then(() => { render(); });
 </script>
 
 <script>
@@ -1123,7 +1228,6 @@
   const cineText = document.getElementById('cinematic-text');
   if (!section || !cloudsImg || !windowImg) return;
 
-  // Create a master timeline for the window section
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: section,
@@ -1133,19 +1237,10 @@
     }
   });
 
-  // 1. Move clouds slightly
   tl.to(cloudsImg, { y: '-10%', x: '-10%', ease: 'none', duration: 2 }, 0);
-
-  // 2. Zoom window
   tl.to(windowImg, { scale: 25, ease: 'power2.in', duration: 2 }, 0);
-
-  // 3. Fade out clouds and window early
   tl.to([cloudsImg, windowImg], { opacity: 0, ease: 'power2.inOut', duration: 1 }, 1.5);
-
-  // 4. Fade IN the cinematic text in the black void
   tl.to(cineText, { opacity: 1, y: -20, ease: 'power1.out', duration: 1 }, 2.5);
-
-  // 5. Fade OUT the cinematic text before leaving the section
   tl.to(cineText, { opacity: 0, y: -40, ease: 'power1.in', duration: 1 }, 4.0);
 
   const windowHeroEls = document.querySelectorAll('#window-hero-left, #window-hero-right');
@@ -1205,8 +1300,8 @@
   });
 })();
 
-(function initDestStack() {
-  const panels = document.querySelectorAll('.dest-full');
+(function initServiceStack() {
+  const panels = document.querySelectorAll('.service-full');
   if (!panels.length) return;
 
   panels.forEach((panel, i) => {
@@ -1225,7 +1320,6 @@
     });
   });
 })();
-
 </script>
 </body>
 </html>

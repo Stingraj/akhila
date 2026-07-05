@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — RANAU</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Bricolage Grotesque';
+    src: url('/fonts/BricolageGrotesque.ttf') format('truetype');
+    font-weight: 200 800;
+    font-stretch: 75% 100%;
+    font-display: swap;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 100%;
+    background: #f0ede8;
+    font-family: 'Inter', sans-serif;
+    color: #1a1a1a;
+  }
+
+  /* NAV */
+  #main-nav {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    padding: 32px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 9999;
+    background: #f0ede8;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .nav-logo {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 18px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: #1a1a1a; text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 40px; }
+  .nav-links a, .nav-cta a {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: #1a1a1a; text-decoration: none; position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0%; height: 1px; background: #1a1a1a; transition: width 0.3s;
+  }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* HERO */
+  #services-hero {
+    background: #0a0806;
+    padding: clamp(140px, 16vw, 240px) clamp(40px, 5vw, 90px) clamp(80px, 10vw, 140px);
+  }
+  .services-hero-eyebrow {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase;
+    color: rgba(240,237,232,0.4); margin-bottom: 24px;
+  }
+  .services-hero-heading {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: clamp(44px, 6vw, 110px);
+    font-weight: 700; line-height: 0.95;
+    letter-spacing: -0.02em; color: #f0ede8;
+    max-width: 900px;
+  }
+  .services-hero-body {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(15px, 1.2vw, 22px);
+    line-height: 1.7; color: rgba(240,237,232,0.55);
+    max-width: 580px; margin-top: 32px;
+  }
+
+  /* SERVICE GRID */
+  #services-grid {
+    padding: clamp(80px, 10vw, 140px) clamp(40px, 5vw, 90px);
+  }
+  .services-grid-inner {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .service-card {
+    background: #fff;
+    padding: clamp(32px, 3.5vw, 56px) clamp(28px, 3vw, 48px);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: background 0.3s, transform 0.2s;
+    cursor: default;
+  }
+  .service-card:hover {
+    background: #1a2a4a;
+    transform: translateY(-2px);
+  }
+  .service-card:hover .service-card-number,
+  .service-card:hover .service-card-title,
+  .service-card:hover .service-card-desc {
+    color: #f0ede8;
+  }
+  .service-card:hover .service-card-title { color: #f0ede8; }
+  .service-card:hover .service-card-desc { color: rgba(240,237,232,0.65); }
+  .service-card-number {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: #bbb; transition: color 0.3s;
+  }
+  .service-card-title {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: clamp(18px, 1.6vw, 28px);
+    font-weight: 700; line-height: 1.15;
+    color: #1a1a1a; transition: color 0.3s;
+  }
+  .service-card-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(13px, 1vw, 16px);
+    line-height: 1.65; color: #777; transition: color 0.3s;
+    flex: 1;
+  }
+
+  /* PROCESS SECTIONS */
+  .process-section {
+    padding: clamp(80px, 10vw, 140px) clamp(40px, 5vw, 90px);
+  }
+  .process-section.dark {
+    background: #0a0806;
+  }
+  .process-header {
+    margin-bottom: clamp(48px, 6vw, 80px);
+  }
+  .process-eyebrow {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase;
+    color: #aaa; margin-bottom: 16px;
+  }
+  .process-section.dark .process-eyebrow { color: rgba(240,237,232,0.35); }
+  .process-heading {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: clamp(32px, 3.5vw, 64px);
+    font-weight: 700; line-height: 1.05; color: #1a1a1a;
+    margin-bottom: 20px;
+  }
+  .process-section.dark .process-heading { color: #f0ede8; }
+  .process-body {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(14px, 1.1vw, 19px);
+    color: #888; line-height: 1.6; max-width: 520px;
+  }
+  .process-section.dark .process-body { color: rgba(240,237,232,0.45); }
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: clamp(32px, 4vw, 56px);
+  }
+  .process-step {}
+  .step-number {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: clamp(36px, 4vw, 64px);
+    font-weight: 700; line-height: 1;
+    color: rgba(26,26,26,0.08); margin-bottom: 16px;
+  }
+  .process-section.dark .step-number { color: rgba(240,237,232,0.08); }
+  .step-title {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: clamp(16px, 1.3vw, 22px);
+    font-weight: 700; color: #1a1a1a; margin-bottom: 10px;
+  }
+  .process-section.dark .step-title { color: #f0ede8; }
+  .step-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(13px, 1vw, 15px);
+    line-height: 1.65; color: #777;
+  }
+  .process-section.dark .step-desc { color: rgba(240,237,232,0.45); }
+
+  /* CTA */
+  #page-cta {
+    background: #f0ede8;
+    padding: clamp(80px, 10vw, 140px) clamp(40px, 5vw, 90px);
+    text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 28px;
+  }
+  .page-cta-eyebrow {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase; color: #999;
+  }
+  .page-cta-heading {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: clamp(28px, 3.5vw, 60px); font-weight: 700; line-height: 1.1;
+    color: #1a1a1a; max-width: 700px;
+  }
+  .page-cta-body {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(14px, 1.1vw, 19px); color: #888;
+    max-width: 500px; line-height: 1.6;
+  }
+  .page-cta-buttons { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .page-cta-btn-dark {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: clamp(11px, 0.78vw, 14px); font-weight: 600;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: #f0ede8; background: #0a0806;
+    padding: clamp(12px, 1vw, 18px) clamp(24px, 2vw, 36px);
+    border-radius: 100px; text-decoration: none;
+    transition: background 0.3s, transform 0.2s; display: inline-block;
+  }
+  .page-cta-btn-dark:hover { background: #1a1a1a; transform: translateY(-1px); }
+  .page-cta-btn-light {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: clamp(11px, 0.78vw, 14px); font-weight: 600;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: #0a0806; background: transparent;
+    border: 1.5px solid rgba(10,8,6,0.25);
+    padding: clamp(12px, 1vw, 18px) clamp(24px, 2vw, 36px);
+    border-radius: 100px; text-decoration: none;
+    transition: border-color 0.3s, transform 0.2s; display: inline-block;
+  }
+  .page-cta-btn-light:hover { border-color: #0a0806; transform: translateY(-1px); }
+
+  /* FOOTER */
+  #main-footer {
+    background: #0a0806; width: 100%;
+    padding: clamp(60px, 6.25vw, 120px) clamp(40px, 4.69vw, 90px) clamp(32px, 2.5vw, 48px);
+  }
+  .footer-inner { width: 100%; }
+  .footer-top-row {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    padding-bottom: clamp(40px, 4vw, 80px);
+  }
+  .footer-logo-big {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: clamp(80px, 12.5vw, 240px); font-weight: 700;
+    line-height: 0.85; letter-spacing: -0.03em; color: #f0ede8;
+  }
+  .footer-top-right {
+    text-align: right; display: flex; flex-direction: column;
+    align-items: flex-end; gap: clamp(16px, 1.5vw, 28px); padding-bottom: 8px;
+  }
+  .footer-tagline {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: clamp(14px, 1.04vw, 20px); font-weight: 300;
+    line-height: 1.6; color: rgba(240,237,232,0.5);
+    max-width: 340px; text-align: right;
+  }
+  .footer-cta-btn {
+    display: inline-block; font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: clamp(11px, 0.73vw, 14px); font-weight: 500;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: #0a0806; background: #f0ede8;
+    padding: clamp(10px, 0.83vw, 16px) clamp(20px, 1.67vw, 32px);
+    border-radius: 100px; text-decoration: none; transition: background 0.3s;
+  }
+  .footer-cta-btn:hover { background: rgba(240,237,232,0.8); }
+  .footer-divider { width: 100%; height: 1px; background: rgba(240,237,232,0.1); }
+  .footer-mid-row {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: clamp(24px, 3vw, 60px); padding: clamp(40px, 4vw, 80px) 0;
+  }
+  .footer-col-title {
+    font-family: 'Bricolage Grotesque', sans-serif; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: rgba(240,237,232,0.35); margin-bottom: clamp(16px, 1.5vw, 28px);
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: clamp(8px, 0.8vw, 16px); }
+  .footer-col ul li { display: flex; justify-content: space-between; align-items: center; }
+  .footer-col a {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: clamp(14px, 1.04vw, 20px); color: #f0ede8;
+    text-decoration: none; transition: color 0.3s;
+  }
+  .footer-col a:hover { color: rgba(240,237,232,0.5); }
+  .footer-col-info p {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: clamp(13px, 0.94vw, 18px); color: rgba(240,237,232,0.6);
+    margin-bottom: clamp(6px, 0.5vw, 10px); line-height: 1.5;
+  }
+  .footer-bottom-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: clamp(20px, 2vw, 36px); flex-wrap: wrap; gap: 16px;
+  }
+  .footer-bottom-row p, .footer-stat {
+    font-family: 'Bricolage Grotesque', sans-serif; font-size: 11px;
+    letter-spacing: 0.15em; text-transform: uppercase; color: rgba(240,237,232,0.3);
+  }
+  .footer-legal { display: flex; gap: clamp(16px, 1.5vw, 32px); }
+  .footer-legal a {
+    font-family: 'Bricolage Grotesque', sans-serif; font-size: 11px;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(240,237,232,0.3); text-decoration: none; transition: color 0.3s;
+  }
+  .footer-legal a:hover { color: #f0ede8; }
+
+  @media (max-width: 900px) {
+    #main-nav { padding: 24px 24px; }
+    .nav-links { display: none; }
+    .services-grid-inner { grid-template-columns: repeat(2, 1fr); }
+    .footer-mid-row { grid-template-columns: repeat(2, 1fr); }
+    .footer-top-row { flex-direction: column; align-items: flex-start; gap: 28px; padding-bottom: 40px; }
+    .footer-logo-big { font-size: clamp(72px, 22vw, 140px); }
+    .footer-top-right { align-items: flex-start; text-align: left; width: 100%; }
+    .footer-tagline { text-align: left; max-width: 100%; }
+    .footer-bottom-row { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 600px) {
+    .services-grid-inner { grid-template-columns: 1fr; }
+    .footer-mid-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <a href="/" class="nav-logo">RANAU</a>
+  <div class="nav-links">
+    <a href="/services.html">Services</a>
+    <a href="/founder.html">Founder</a>
+    <a href="/contact.html">Contact</a>
+  </div>
+  <div class="nav-cta">
+    <a href="/contact.html">Get a Free Strategy</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="services-hero">
+  <div class="services-hero-eyebrow">What We Do Best</div>
+  <h1 class="services-hero-heading">Comprehensive Digital<br>Marketing Services</h1>
+  <p class="services-hero-body">Practical digital marketing solutions designed to grow your business online — from search to social, ads to branding.</p>
+</section>
+
+<!-- SERVICES GRID -->
+<section id="services-grid">
+  <div class="services-grid-inner">
+
+    <div class="service-card">
+      <div class="service-card-number">01</div>
+      <h2 class="service-card-title">Search Engine Optimization</h2>
+      <p class="service-card-desc">Improve your rankings, attract organic traffic, and grow your visibility on search engines that matter.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-card-number">02</div>
+      <h2 class="service-card-title">Social Media Management</h2>
+      <p class="service-card-desc">Manage your brand presence, engage your audience, and stay consistent across social platforms.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-card-number">03</div>
+      <h2 class="service-card-title">AI Videos Generation</h2>
+      <p class="service-card-desc">Create AI-powered videos that help your brand explain, promote, and stand out with speed and consistency.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-card-number">04</div>
+      <h2 class="service-card-title">Brand Promotion</h2>
+      <p class="service-card-desc">Increase awareness, strengthen recognition, and reach the right audience through strategic digital campaigns.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-card-number">05</div>
+      <h2 class="service-card-title">Public Relations</h2>
+      <p class="service-card-desc">Build a credible public image through clear communication, reputation-focused messaging, and brand visibility.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-card-number">06</div>
+      <h2 class="service-card-title">Meta Ads</h2>
+      <p class="service-card-desc">Run targeted Facebook and Instagram ad campaigns that reach your ideal customers at the right moment.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-card-number">07</div>
+      <h2 class="service-card-title">Google Ads</h2>
+      <p class="service-card-desc">Launch high-performing Google search and display campaigns for instant visibility and qualified traffic.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-card-number">08</div>
+      <h2 class="service-card-title">Pay-Per-Click Advertising</h2>
+      <p class="service-card-desc">Get instant results and maximize ROI with targeted PPC campaigns across platforms and networks.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-card-number">09</div>
+      <h2 class="service-card-title">Content Marketing</h2>
+      <p class="service-card-desc">Create valuable content that attracts, engages, and converts your target audience into loyal customers.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-card-number">10</div>
+      <h2 class="service-card-title">Email Marketing</h2>
+      <p class="service-card-desc">Nurture leads, build relationships, and drive sales through strategic, well-crafted email campaigns.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-card-number">11</div>
+      <h2 class="service-card-title">Branding &amp; Creative Strategy</h2>
+      <p class="service-card-desc">Develop a distinctive brand identity and creative strategy that sets you apart from the competition.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-card-number">12</div>
+      <h2 class="service-card-title">Website Design &amp; Landing Pages</h2>
+      <p class="service-card-desc">Design conversion-focused websites and landing pages that turn visitors into customers and enquiries.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-card-number">13</div>
+      <h2 class="service-card-title">Website Creation</h2>
+      <p class="service-card-desc">Clean, business-focused websites that present your brand clearly and support trust and visibility.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-card-number">14</div>
+      <h2 class="service-card-title">Domain Management</h2>
+      <p class="service-card-desc">Manage your domain setup so your brand stays accessible, professional, and properly connected online.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-card-number">15</div>
+      <h2 class="service-card-title">Analytics &amp; Performance Tracking</h2>
+      <p class="service-card-desc">Track, measure, and optimize every campaign with data-driven insights and clear performance reporting.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- MARKETING PROCESS -->
+<section class="process-section dark">
+  <div class="process-header">
+    <div class="process-eyebrow">Our Process</div>
+    <h2 class="process-heading">How We Work</h2>
+    <p class="process-body">A clear, proven process that delivers results for every client we work with.</p>
+  </div>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-number">01</div>
+      <h3 class="step-title">Discover</h3>
+      <p class="step-desc">We understand your business, audience, goals, and current digital presence to build a clear picture of where you are and where you want to go.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-number">02</div>
+      <h3 class="step-title">Strategy</h3>
+      <p class="step-desc">We create a clear marketing direction with the right channels, messaging, and tactics aligned to your specific business goals.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-number">03</div>
+      <h3 class="step-title">Execute</h3>
+      <p class="step-desc">We launch campaigns, content, ads, and digital assets with consistent quality and attention to detail across every touchpoint.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-number">04</div>
+      <h3 class="step-title">Optimize</h3>
+      <p class="step-desc">We track performance, improve results, and scale what works — continuously refining to maximize your return on investment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WEBSITE PROCESS -->
+<section class="process-section">
+  <div class="process-header">
+    <div class="process-eyebrow">Our Process</div>
+    <h2 class="process-heading">How We Build Your Website</h2>
+    <p class="process-body">Simple. Transparent. Done right. A six-step process that puts you in control.</p>
+  </div>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-number">01</div>
+      <h3 class="step-title">Discovery Call</h3>
+      <p class="step-desc">We listen to your goals, vision, and audience to understand exactly what you need and why.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-number">02</div>
+      <h3 class="step-title">Design Mockup</h3>
+      <p class="step-desc">See exactly how your website will look before we build a single line of code.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-number">03</div>
+      <h3 class="step-title">Development</h3>
+      <p class="step-desc">Clean code. Fast load. Pixel-perfect on every device, from mobile to desktop.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-number">04</div>
+      <h3 class="step-title">Review &amp; Revise</h3>
+      <p class="step-desc">You give feedback. We refine until it's exactly right — no compromises.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-number">05</div>
+      <h3 class="step-title">Launch</h3>
+      <p class="step-desc">Your website goes live. We handle the entire deployment process seamlessly.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-number">06</div>
+      <h3 class="step-title">Ongoing Support</h3>
+      <p class="step-desc">We stay with you — updates, fixes, and growth support as your business evolves.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="page-cta">
+  <div class="page-cta-eyebrow">Ready to Grow?</div>
+  <h2 class="page-cta-heading">Let's Engineer Attention for Your Brand</h2>
+  <p class="page-cta-body">Tell us about your business and we'll help you identify the right digital strategy to grow online.</p>
+  <div class="page-cta-buttons">
+    <a href="/contact.html" class="page-cta-btn-dark">Get a Free Strategy</a>
+    <a href="/contact.html" class="page-cta-btn-light">Contact Us</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="main-footer">
+  <div class="footer-inner">
+    <div class="footer-top-row">
+      <div class="footer-logo-big">RANAU</div>
+      <div class="footer-top-right">
+        <div class="footer-tagline">RANAU helps businesses strengthen visibility, build credibility, and achieve measurable digital growth.</div>
+        <a href="/contact.html" class="footer-cta-btn">Get a Free Strategy →</a>
+      </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-mid-row">
+      <div class="footer-col">
+        <div class="footer-col-title">Quick Links</div>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/founder.html">Founder</a></li>
+          <li><a href="/contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Services</div>
+        <ul>
+          <li><a href="/services.html">SEO</a></li>
+          <li><a href="/services.html">Social Media</a></li>
+          <li><a href="/services.html">AI Videos</a></li>
+          <li><a href="/services.html">Brand Promotion</a></li>
+          <li><a href="/services.html">Google Ads</a></li>
+          <li><a href="/services.html">Content Marketing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Company</div>
+        <ul>
+          <li><a href="/founder.html">About the Founder</a></li>
+          <li><a href="/services.html">What We Do</a></li>
+          <li><a href="/contact.html">Work With Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-col-info">
+        <div class="footer-col-title">Contact</div>
+        <p>hello@ranaudigital.com</p>
+        <p>9010897813</p>
+        <p>India</p>
+      </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom-row">
+      <p>© 2025 RANAU. All rights reserved.</p>
+      <div class="footer-stat">Results-Driven Digital Marketing</div>
+      <div class="footer-stat">© 2025 RANAU</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

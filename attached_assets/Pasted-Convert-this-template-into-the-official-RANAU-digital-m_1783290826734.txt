@@ -1,0 +1,278 @@
+Convert this template into the official RANAU digital marketing agency website.
+
+DO NOT redesign from scratch. Keep the same premium layout, animations, spacing, scroll effects, cards, buttons, and responsive behavior. Only replace the travel/template content with the RANAU content below.
+
+WEBSITE BRAND
+Brand Name: RANAU
+Industry: Digital Marketing Agency
+Main message: Results-driven digital marketing agency that helps brands build visibility, generate qualified leads, and grow through strategy, creativity, and performance marketing.
+
+HOME PAGE CONTENT
+
+Hero Section:
+Small text: RESULTS-DRIVEN DIGITAL MARKETING
+Main heading: We Engineer Attention
+Paragraph:
+We help brands build visibility, generate qualified leads, and grow with clear digital strategy, creative execution, and performance-focused marketing.
+
+Buttons:
+Get a Free Strategy
+Explore Services
+
+Stats:
+200+ Happy Clients
+350+ Projects Completed
+98% Client Satisfaction
+5X Average ROI Growth
+
+WHAT WE DO SECTION
+Heading: Digital Marketing Services
+Paragraph:
+We offer practical digital marketing solutions that help businesses strengthen visibility, engagement, and long-term growth.
+Button: View All Services
+
+Featured services:
+1. Search Engine Optimization
+Improve your rankings, attract organic traffic, and grow your visibility on search engines.
+
+2. Social Media Management
+Manage your brand presence, engage your audience, and stay consistent across social platforms.
+
+3. Brand Promotion
+We help brands increase awareness, strengthen recognition, and reach the right audience through strategic digital campaigns and consistent brand communication.
+
+4. Public Relations
+We support businesses in building a credible public image through clear communication, reputation-focused messaging, and relationship-driven brand visibility.
+
+5. Website Creation
+We create clean, business-focused websites that present your brand clearly and support trust, visibility, and enquiries.
+
+6. Domain Management
+We help manage your domain setup so your brand stays accessible, professional, and properly connected across essential digital services.
+
+ABOUT SECTION
+Small text: ABOUT US
+Heading: We Build Digital Growth
+Paragraph:
+RANAU helps businesses build stronger visibility, sharper positioning, and sustainable digital growth.
+
+We work with brands that want clear positioning, better visibility, stronger online presence, and measurable growth.
+
+Button: Learn More About Us
+
+FOUNDER SECTION
+Small text: MEET THE FOUNDER
+Name: Seerapu Akhila
+Role: Founder, RANAU
+Paragraph:
+Seerapu Akhila is a passionate entrepreneur and the founder of RANAU, a digital marketing agency focused on helping businesses build a strong and effective online presence.
+
+With expertise in branding, social media marketing, SEO, and digital strategy, she leads the agency with a clear vision to deliver practical, innovative, and growth-focused digital solutions.
+
+Button: Learn More About the Founder
+Image placeholder text: Founder photo will be updated later.
+Use a clean placeholder card with the letter “A”.
+
+MARKETING PROCESS SECTION
+Small text: OUR PROCESS
+Heading: How We Work
+Paragraph: A clear, proven process that delivers results.
+
+Steps:
+01 Discover
+We understand your business, audience, goals, and current digital presence.
+
+02 Strategy
+We create a clear marketing direction with the right channels and messaging.
+
+03 Execute
+We launch campaigns, content, ads, and digital assets with consistent quality.
+
+04 Optimize
+We track performance, improve results, and scale what works.
+
+WEBSITE PROCESS SECTION
+Small text: OUR PROCESS
+Heading: How We Build Your Website
+Paragraph: Simple. Transparent. Done right.
+
+Steps:
+01 Discovery Call
+We listen to your goals, vision, and audience.
+
+02 Design Mockup
+See exactly how your website will look before we build.
+
+03 Development
+Clean code. Fast load. Pixel-perfect on every device.
+
+04 Review & Revise
+You give feedback. We refine until it's exactly right.
+
+05 Launch
+Your website goes live. We handle the entire deployment.
+
+06 Ongoing Support
+We stay with you — updates, fixes, and growth.
+
+CTA SECTION
+Small text: READY TO GROW?
+Heading: Let's Engineer Attention for Your Brand
+Paragraph:
+Tell us about your business and we'll help you identify the right digital strategy to grow online.
+
+Buttons:
+Get a Free Strategy
+Contact Us
+
+FOUNDER PAGE CONTENT
+
+Page label: FOUNDER
+Name: Seerapu Akhila
+Role: Founder, RANAU
+Image placeholder: Founder photo will be updated later.
+
+Bio:
+Seerapu Akhila is a passionate entrepreneur and the founder of RANAU, a digital marketing agency focused on helping businesses build a strong and effective online presence. With expertise in branding, social media marketing, SEO, and digital strategy, she leads the agency with a clear vision: to create practical, innovative, and growth-focused digital solutions that improve visibility, engagement, and business performance. Her mission is to empower brands to grow sustainably in the digital age.
+
+Quote:
+"Sustainable growth starts with clear strategy, consistent communication, and meaningful digital presence."
+— Seerapu Akhila, Founder
+
+Founder Note Section:
+Small text: FOUNDER'S NOTE
+Heading: A Note from the Founder
+Paragraph:
+At RANAU, we focus on helping businesses build a stronger digital presence through thoughtful strategy, clear communication, and measurable execution.
+
+Our work is grounded in practical solutions that improve visibility, strengthen engagement, and support long-term business growth.
+
+SERVICES PAGE CONTENT
+
+Heading: What We Do Best
+Paragraph:
+Comprehensive digital marketing services designed to grow your business online.
+
+Services list:
+1. Search Engine Optimization
+Improve your rankings, attract organic traffic, and grow your visibility on search engines.
+
+2. Social Media Management
+Manage your brand presence, engage your audience, and stay consistent across social platforms.
+
+3. AI Videos Generation
+Create AI-powered videos that help your brand explain, promote, and stand out with speed and consistency.
+
+4. Brand Promotion
+We help brands increase awareness, strengthen recognition, and reach the right audience through strategic digital campaigns and consistent brand communication.
+
+5. Public Relations
+We support businesses in building a credible public image through clear communication, reputation-focused messaging, and relationship-driven brand visibility.
+
+6. Meta Ads
+Run targeted Facebook and Instagram ad campaigns that reach your ideal customers.
+
+7. Google Ads
+Launch high-performing Google search and display campaigns for instant visibility.
+
+8. Pay-Per-Click Advertising
+Get instant results and maximize ROI with targeted PPC campaigns across platforms.
+
+9. Content Marketing
+Create valuable content that attracts, engages, and converts your target audience.
+
+10. Email Marketing
+Nurture leads, build relationships, and drive sales through strategic email campaigns.
+
+11. Branding & Creative Strategy
+Develop a distinctive brand identity and creative strategy that sets you apart.
+
+12. Website Design & Landing Pages
+Design conversion-focused websites and landing pages that turn visitors into customers.
+
+13. Website Creation
+We create clean, business-focused websites that present your brand clearly and support trust, visibility, and enquiries.
+
+14. Domain Management
+We help manage your domain setup so your brand stays accessible, professional, and properly connected across essential digital services.
+
+15. Analytics & Performance Tracking
+Track, measure, and optimize every campaign with data-driven insights and reporting.
+
+CONTACT PAGE CONTENT
+
+Small text: GET IN TOUCH
+Heading: Let's Engineer Attention for Your Brand
+Paragraph:
+Tell us about your business and we'll help you identify the right digital strategy to grow online.
+
+Form title: Send Us a Message
+Fields:
+Your Name
+Your Email
+Your Phone Number
+Your Company Name
+Select a Service
+Tell us about your project...
+Button: Get a Free Strategy
+
+Contact Information:
+Email: hello@ranaudigital.com
+Phone: 9010897813
+Location: India
+
+Follow Us section can stay, but remove broken or empty social links.
+
+FOOTER CONTENT
+
+Brand:
+RANAU
+Paragraph:
+RANAU helps businesses strengthen visibility, build credibility, and achieve measurable digital growth.
+
+Quick Links:
+Home
+About Us
+Founder
+Services
+Contact Us
+
+Footer Services:
+SEO
+Social Media Management
+AI Videos Generation
+Brand Promotion
+Public Relations
+Google Ads
+Content Marketing
+
+Contact:
+hello@ranaudigital.com
+9010897813
+India
+
+Copyright:
+© 2025 RANAU. All rights reserved.
+
+IMPORTANT CLEANUP
+Remove all old template words like:
+Travel
+Adventure
+Destinations
+Journeys
+Journal
+Book Now
+Fly
+Tours
+Trips
+Hotels
+
+Fix duplication:
+Footer must appear only once per page.
+Founder content must appear only once.
+Services must not repeat unless it is home preview + full services page.
+No broken buttons.
+No empty links.
+Keep mobile responsive.
+Keep all current animations working.
+After editing, run the project, test the pages, and fix console/layout errors.
